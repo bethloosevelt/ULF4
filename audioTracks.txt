@@ -1,0 +1,3 @@
+track # | reserved for
+-----------------------
+1       | background game music (main theme that starts on menu screen)
