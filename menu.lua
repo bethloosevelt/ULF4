@@ -7,6 +7,7 @@ local widget = require "widget"
 -- our packages
 music = require("music")
 images = require("images")
+imageTransformers = require("imageTransformers")
 
 local nextScene = "difficultySelect"
 local sceneTransitionOptions =
@@ -36,7 +37,9 @@ function createStartGameButton()
 end
 
 function createBackgroundImage(sceneGroup)
-	return display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, 100)
+	local logo = display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, 100)
+	imageTransformers.scaleToScreenX(logo, 40) -- 40px padding on each side
+	return logo
 end
 
 function scene:create( event )
