@@ -1,21 +1,21 @@
--- libs
+
 local composer = require("composer")
 local scene = composer.newScene()
 local widget = require "widget"
 
 
 -- our packages
-music = require("music")
-images = require("images")
-imageTransformers = require("imageTransformers")
+local music = require("configs.music")
+local images = require("configs.images")
+local scenes = require("scenes.scenes")
+local displayObjectTransformers = require("controllerLibs.displayObjectTransformers")
 
-local nextScene = "difficultySelect"
+local nextScene = scenes.difficultySelect
 local sceneTransitionOptions =
 	{
 	    effect = "fade",
 	    time = 400
 	}
-
 
 function playBackgroundMusic()
 	local backGroundSong = music.songs.backgroundMusic
@@ -24,6 +24,8 @@ function playBackgroundMusic()
 end
 
 -- maybe have a util that builds generic buttons? is the constructor shitty enough?
+-- thinking create button with a table of vals includng
+-- paths, x, y, width, height, function
 function createStartGameButton()
 	local startGameButton = widget.newButton{
 		defaultFile = images.buttons.startGame.defaultFilePath,
@@ -37,11 +39,12 @@ function createStartGameButton()
 end
 
 function createBackgroundImage(sceneGroup)
-	local logo = display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, 100)
-	imageTransformers.scaleToScreenX(logo, 40) -- 40px padding on each side
+	local logo = display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, 200)
+	displayObjectTransformers.scaleToScreenX(logo, 40) -- 40px padding on each side
 	return logo
 end
 
+-- entry point
 function scene:create( event )
 	playBackgroundMusic()
 	local sceneGroup = self.view
