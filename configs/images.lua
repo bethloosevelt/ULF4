@@ -40,6 +40,11 @@ images.characterSelectImages = {
     {
       defaultFilePath = characterSelectImagesBaseDir .. "markTwain.jpg",
       overFilePath = characterSelectImagesBaseDir .. "markTwainOver.jpg"
+    },
+  janeAusten =
+    {
+      defaultFilePath = characterSelectImagesBaseDir .. "janeAusten.png",
+      overFilePath = characterSelectImagesBaseDir .. "janeAustenOver.png"
     }
 }
 

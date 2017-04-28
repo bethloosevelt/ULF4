@@ -21,6 +21,11 @@ local characters = {
     displayName = "Mark Twain",
     power = "",
     baseHealth = 200
+  },
+  janeAusten = {
+    displayName = "Jane Austen",
+    power = "",
+    baseHealth = 200
   }
 }
 
