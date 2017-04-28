@@ -8,7 +8,6 @@ local mathUtils = require("langUtils.mathUtils")
 
 -- our packages
 local selectionController = require("scenes.selection.selectionController")
-local butt
 
 local displayGroups = {
   title = display.newGroup(),
