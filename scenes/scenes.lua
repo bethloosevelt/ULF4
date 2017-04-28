@@ -1,7 +1,7 @@
 
 local scenes = {
   welcomeScreen = "scenes.welcomeScreen",
-  difficultySelect = "scenes.difficultySelect",
+  characterSelect = "scenes.selection.selectionView",
   game = ""
 }
 

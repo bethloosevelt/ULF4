@@ -5,7 +5,7 @@ local buttons = {}
 
 buttons.imageButton = function (height, width, onReleaseFn, images)
 	local newButton = widget.newButton {
-		defaultFile = images.default,
+		defaultFile = images.defaultFilePath,
     overFile = images.over,
 		width=width, height=height,
 		onRelease = onReleaseFn

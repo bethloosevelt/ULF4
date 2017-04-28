@@ -19,7 +19,7 @@ images.buttons = {
 }
 
 images.characterSelectImages = {
-  hpLoveCraft =
+  hpLovecraft =
     {
       defaultFilePath = "assets/images/characterImages/hpLovecraft.png",
       overFilePath = "assets/images/characterImages/hpLovecraftOver.png"

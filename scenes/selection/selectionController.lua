@@ -1,13 +1,13 @@
 
-local model = require("selectionModel")
+local model = require("scenes.selection.selectionModel")
 
 -- create images
-function controlScene(slectionView)
+function controlScene(selectionView)
   -- merge the character image data with the charater data
-  characters = model.characters
-  characterImages = model.characterImages
+  local characters = model.characters
+  local characterSelectImages = model.characterSelectImages
   for key, index in pairs(characters) do
-    characters[key].characterButtonImages = characterImages[key]
+    characters[key].characterButtonImages = characterSelectImages[key]
   end
   selectionView:drawCharacterButtons(characters)
 end

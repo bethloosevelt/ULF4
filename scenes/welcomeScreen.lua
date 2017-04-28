@@ -10,7 +10,7 @@ local images = require("configs.images")
 local scenes = require("scenes.scenes")
 local displayObjectTransformers = require("viewLibs.displayObjectTransformers")
 
-local nextScene = scenes.difficultySelect
+local nextScene = scenes.characterSelect
 local sceneTransitionOptions =
 	{
 	    effect = "fade",
@@ -31,7 +31,7 @@ function createStartGameButton()
 		defaultFile = images.buttons.startGame.defaultFilePath,
         overFile = images.buttons.startGame.overFilePath,
 		width=154, height=40,
-		onRelease = function() composer.getScene(nextScene, sceneTransitionOptions) end
+		onRelease = function() print(nextScene) print("FUCK") composer.gotoScene(nextScene, sceneTransitionOptions) end
 	}
 	startGameButton.x = display.contentCenterX
 	startGameButton.y = display.contentHeight - 125

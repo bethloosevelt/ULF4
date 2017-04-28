@@ -3,12 +3,12 @@ local powers = require("sharedModels.powers")
 
 local characters = {
   williamShakespere = {
-    displayName = "William Shakespere"
+    displayName = "William Shakespere",
     power = powers.swap,
     baseHealth = 200
   },
-  hpLoveCraft = {
-    displayName = "H.P. Lovecraft"
+  hpLovecraft = {
+    displayName = "H.P. Lovecraft",
     power = powers.void,
     baseHealth = 200
   },
