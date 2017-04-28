@@ -8,7 +8,7 @@ local widget = require "widget"
 local music = require("configs.music")
 local images = require("configs.images")
 local scenes = require("scenes.scenes")
-local displayObjectTransformers = require("controllerLibs.displayObjectTransformers")
+local displayObjectTransformers = require("viewLibs.displayObjectTransformers")
 
 local nextScene = scenes.difficultySelect
 local sceneTransitionOptions =
@@ -46,22 +46,12 @@ end
 
 -- entry point
 function scene:create( event )
-	playBackgroundMusic()
+	-- playBackgroundMusic()
 	local sceneGroup = self.view
 	local startGameButton = createStartGameButton()
 	local backgroundImage = createBackgroundImage(sceneGroup)
 	sceneGroup:insert(backgroundImage)
 	sceneGroup:insert(startGameButton)
-end
-
-function scene:show( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-end
-
-function scene:hide( event )
-	local sceneGroup = self.view
-	local phase = event.phase
 end
 
 function scene:destroy( event )
@@ -74,8 +64,6 @@ end
 
 -- Listener setup
 scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 return scene
