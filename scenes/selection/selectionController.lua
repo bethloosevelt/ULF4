@@ -7,7 +7,9 @@ function controlScene(selectionView)
   local characters = model.characters
   local characterSelectImages = model.characterSelectImages
   for key, index in pairs(characters) do
-    characters[key].characterButtonImages = characterSelectImages[key]
+    characters[key].characterButtonImage = characterSelectImages[key].default
   end
   selectionView:drawCharacterButtons(characters)
 end
+
+function characterChosen(character)

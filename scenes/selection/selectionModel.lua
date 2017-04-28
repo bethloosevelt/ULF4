@@ -9,4 +9,6 @@ selectionModel.characterSelectImages = images.characterSelectImages
 selectionModel.acceptButtonImages = images.buttons.characterSelectAccept
 selectionModel.nextScene = scenes.game
 
+
+
 return selectionModel
