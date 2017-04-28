@@ -7,32 +7,39 @@ images.backgrounds = {
     }
 }
 
+local buttonsBaseDir = "assets/images/buttons/"
 images.buttons = {
     startGame = {
-        defaultFilePath = "assets/images/buttons/playButton.png",
-        overFilePath = "assets/images/buttons/playButtonDown.png"
+        defaultFilePath = buttonsBaseDir .. "playButton.png",
+        overFilePath = buttonsBaseDir .. "playButtonDown.png"
     },
     characterSelectAccept = {
-      defaultFilePath = "assets/images/buttons/playButton.png",
-      overFilePath = "assets/images/buttons/playButtonDown.png"
+      defaultFilePath = buttonsBaseDir .. "playButton.png",
+      overFilePath = buttonsBaseDir .. "playButtonDown.png"
     }
 }
 
+local characterSelectImagesBaseDir = "assets/images/characterImages/"
 images.characterSelectImages = {
   hpLovecraft =
     {
-      defaultFilePath = "assets/images/characterImages/hpLovecraft.png",
-      overFilePath = "assets/images/characterImages/hpLovecraftOver.png"
+      defaultFilePath = characterSelectImagesBaseDir .. "hpLovecraft.png",
+      overFilePath = characterSelectImagesBaseDir .. "hpLovecraftOver.png"
     },
   williamShakespere =
     {
-      defaultFilePath = "assets/images/characterImages/williamShakespere.png",
-      overFilePath = "assets/images/characterImages/williamShakespereOver.png"
+      defaultFilePath = characterSelectImagesBaseDir .. "williamShakespere.png",
+      overFilePath = characterSelectImagesBaseDir .. "williamShakespereOver.png"
     },
   oscarWilde =
     {
-      defaultFilePath = "assets/images/characterImages/oscarWilde.png",
-      overFilePath = "assets/images/characterImages/oscarWilde.png"
+      defaultFilePath = characterSelectImagesBaseDir .. "oscarWilde.png",
+      overFilePath = characterSelectImagesBaseDir .. "oscarWilde.png"
+    },
+  markTwain =
+    {
+      defaultFilePath = characterSelectImagesBaseDir .. "markTwain.jpg",
+      overFilePath = characterSelectImagesBaseDir .. "markTwainOver.jpg"
     }
 }
 

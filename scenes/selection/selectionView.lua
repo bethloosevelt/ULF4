@@ -31,11 +31,12 @@ function calibrateGrid(characters)
   gridProperties.size = math.ceil(math.sqrt(gridProperties.characterCount))
 
   gridProperties.paddingOnEachSide = 15
-  gridProperties.imageWidth = (display.contentWidth - (2*gridProperties.paddingOnEachSide * gridProperties.size)) / gridProperties.size
+  gridProperties.imageWidth = (display.contentWidth - gridProperties.size) / gridProperties.size
   gridProperties.imageHeight = gridProperties.imageWidth
   -- make this easier to read
-  gridProperties.x = function(index) return (mathUtils.round(gridProperties.size / index) * (gridProperties.imageWidth + (2 * gridProperties.paddingOnEachSide)) - ((gridProperties.imageWidth + gridProperties.paddingOnEachSide*2) / 2)) end
-  gridProperties.y = function(index) return (mathUtils.round(index / gridProperties.size) * (gridProperties.imageHeight + (2 * gridProperties.paddingOnEachSide)) - ((gridProperties.imageHeight + gridProperties.paddingOnEachSide*2) / 2)) end
+                                            -- index of x in grid
+  gridProperties.x = function(index) return ((((index - 1)%gridProperties.size) + 1) * gridProperties.imageWidth) - (0.5 * gridProperties.imageWidth) end
+  gridProperties.y = function(index) return ((math.floor((index - 1) / gridProperties.size) + 1) * gridProperties.imageHeight) - (0.5 * gridProperties.imageHeight)  end
   return gridProperties
 end
 
