@@ -1,5 +1,5 @@
 
-local powers = require("sharedModels.powers")
+local powers = require("configs.powers")
 
 local characters = {
   williamShakespere = {

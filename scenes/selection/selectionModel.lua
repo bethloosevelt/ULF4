@@ -1,6 +1,6 @@
 local selectionModel = {}
 
-local characters = require("sharedModels.characters")
+local characters = require("configs.characters")
 local images = require("configs.images")
 local scenes = require("scenes.scenes")
 
