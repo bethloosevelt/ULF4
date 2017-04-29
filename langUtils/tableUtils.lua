@@ -8,4 +8,20 @@ tableUtils.count = function(t)
   return count
 end
 
+-- finds first instance where predicate -> true
+tableUtils.where = function(t, predicate)
+  for k, v in pairs(t) do
+    if predicate(v) then
+      return k
+    end
+  end
+  return nil
+end
+
+tableUtils.print = function(t)
+  for k,v in pairs(t) do
+    print(k .. " : " .. tostring(v))
+  end
+end
+
 return tableUtils
