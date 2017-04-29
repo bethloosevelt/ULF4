@@ -17,10 +17,10 @@ local displayGroups = {
 
 function drawCharacter(character, index, gridProperties)
   local foo = function() print(character.displayName) end
-  local button = buttons.imageButton(gridProperties.imageWidth, gridProperties.imageHeight, foo, character.characterButtonImages)
+  print(character.imageToDisplay())
+  local button = buttons.imageButton(gridProperties.imageWidth, gridProperties.imageHeight, foo, character.imageToDisplay())
   button.x = gridProperties.x(index)
   button.y = gridProperties.y(index)
-  print(character.displayName .. " " .. index .. " " .. button.x .. " " .. button.y .. " " .. button.width .. " " .. button.height )
   displayGroups.characterButtons:insert(button)
 end
 
