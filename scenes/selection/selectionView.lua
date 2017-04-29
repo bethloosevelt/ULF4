@@ -3,8 +3,8 @@ local composer = require("composer")
 local scene = composer.newScene()
 local widget = require "widget"
 local buttons = require("viewLibs.buttons")
-local tableUtils = require("langUtils.tableUtils")
-local mathUtils = require("langUtils.mathUtils")
+require("langUtils.tableUtils")
+require("langUtils.mathUtils")
 
 -- our packages
 local controller = require("scenes.selection.selectionController")
@@ -34,7 +34,7 @@ end
 -- consider making the grid different sizes
 function calibrateGrid(characters)
   gridProperties = {}
-  gridProperties.characterCount = tableUtils.count(characters)
+  gridProperties.characterCount = table.count(characters)
   gridProperties.size = math.ceil(math.sqrt(gridProperties.characterCount))
 
   gridProperties.paddingOnEachSide = 15
@@ -65,7 +65,7 @@ end
 function scene:update(characters)
   for buttonKey, button in pairs(buttonTable) do
     local idsMatch = function(character) return character.id == button.id end
-    local character = characters[tableUtils.where(characters, idsMatch)]
+    local character = characters[table.where(characters, idsMatch)]
     if button.isSelected ~= character.isSelected then
       redrawButton(button, character)
     end
