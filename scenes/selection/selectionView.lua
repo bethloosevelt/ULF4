@@ -3,31 +3,38 @@ local composer = require("composer")
 local scene = composer.newScene()
 local widget = require "widget"
 local buttons = require("viewLibs.buttons")
-local tableUtils = require("langUtils.tableUtils")
-local mathUtils = require("langUtils.mathUtils")
+require("langUtils.tableUtils")
+require("langUtils.mathUtils")
 
 -- our packages
-local selectionController = require("scenes.selection.selectionController")
-
+local controller = require("scenes.selection.selectionController")
+local gridProperties = nil
 local displayGroups = {
   title = display.newGroup(),
   characterButtons = display.newGroup(),
   accept = display.newGroup()
 }
+local buttonTable = {}
 
-function drawCharacter(character, index, gridProperties)
-  local foo = function() print(character.displayName) end
-  local button = buttons.imageButton(gridProperties.imageWidth, gridProperties.imageHeight, foo, character.characterButtonImages)
+function selected(event)
+  controller.procSelectEvent(event.target, scene)
+end
+
+function drawCharacter(character, index)
+  local button = buttons.imageButton(gridProperties.imageWidth, gridProperties.imageHeight, selected, character.imageToDisplay())
   button.x = gridProperties.x(index)
   button.y = gridProperties.y(index)
-  print(character.displayName .. " " .. index .. " " .. button.x .. " " .. button.y .. " " .. button.width .. " " .. button.height )
+  button.id = character.id
+  button.isSelected = character.isSelected
+  button.index = index
   displayGroups.characterButtons:insert(button)
+  buttonTable[index] = button
 end
 
 -- consider making the grid different sizes
 function calibrateGrid(characters)
-  local gridProperties = {}
-  gridProperties.characterCount = tableUtils.count(characters)
+  gridProperties = {}
+  gridProperties.characterCount = table.count(characters)
   gridProperties.size = math.ceil(math.sqrt(gridProperties.characterCount))
 
   gridProperties.paddingOnEachSide = 15
@@ -41,12 +48,27 @@ function calibrateGrid(characters)
 end
 
 function scene:drawCharacterButtons(characters)
-  print(#characters)
   local gridProperties = calibrateGrid(characters)
   local index = 1
   for characterKey, character in pairs(characters) do
-    drawCharacter(character, index, gridProperties)
+    drawCharacter(character, index)
     index = index + 1
+  end
+end
+
+function redrawButton(button, character)
+  local index = button.index
+  button:removeSelf()
+  drawCharacter(character, index)
+end
+
+function scene:update(characters)
+  for buttonKey, button in pairs(buttonTable) do
+    local idsMatch = function(character) return character.id == button.id end
+    local character = characters[table.where(characters, idsMatch)]
+    if button.isSelected ~= character.isSelected then
+      redrawButton(button, character)
+    end
   end
 end
 
@@ -57,7 +79,7 @@ function scene:create( event )
   for key, group in pairs(displayGroups) do
     primarySceneGroup:insert(group)
   end
-  controlScene(scene)
+  controller.controlScene(scene)
 end
 
 function scene:destroy( event )

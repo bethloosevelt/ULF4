@@ -1,15 +1,24 @@
 
 local model = require("scenes.selection.selectionModel")
+require("langUtils.tableUtils")
 
--- create images
-function controlScene(selectionView)
-  -- merge the character image data with the charater data
+local controller = {}
+
+controller.controlScene = function(selectionView)
   local characters = model.characters
-  local characterSelectImages = model.characterSelectImages
-  for key, index in pairs(characters) do
-    characters[key].characterButtonImage = characterSelectImages[key].default
-  end
   selectionView:drawCharacterButtons(characters)
 end
 
-function characterChosen(character)
+controller.procSelectEvent = function(eventTarget, selectionView)
+  local characters = model.characters
+  local idsMatch = function(character) return character.id == eventTarget.id end
+  local selectedCharacterKey = table.where(characters, idsMatch)
+  for characterKey, character in pairs(characters) do
+    character.isSelected = false
+  end
+  model.selectedCharacterId = eventTarget.id
+  characters[selectedCharacterKey].isSelected = true
+  selectionView:update(characters)
+end
+
+return controller
