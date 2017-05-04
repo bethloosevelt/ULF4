@@ -8,6 +8,9 @@ controller.controlScene = function(selectionView)
   selectionView:drawCharacterButtons(model.characters)
   selectionView:drawDifficultyButtons(model.difficulties)
   selectionView.displayGroups.difficultyButtons.isVisible = false
+  selectionView:drawStartGameButton(model.startGameButton)
+  selectionView.displayGroups.startGame.isVisible = false
+
 end
 
 controller.procSelectEvent = function(eventTarget, selectionView)
@@ -26,6 +29,12 @@ end
 controller.procSelectDifficultyEvent = function(eventTarget, selectionView)
     model.selectedDifficulty = eventTarget.difficulty
     selectionView:drawSelectedIndicator(model.selectedButtonImage, eventTarget.difficulty)
+    selectionView.displayGroups.startGame.isVisible = true
+end
+
+controller.startGame = function()
+  print("CHOSEN CHAR: " .. model.selectedCharacterId)
+  print("CHOSEN DIFFICULTY " .. model.selectedDifficulty)
 end
 
 return controller

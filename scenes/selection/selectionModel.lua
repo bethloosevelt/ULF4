@@ -25,5 +25,6 @@ selectionModel.characters = charactersForSelectionScreen
 selectionModel.nextScene = scenes.game
 selectionModel.selectedCharacterId = nil
 selectionModel.selectedDifficulty = nil
+selectionModel.startGameButton = images.buttons.startGame.defaultFilePath
 
 return selectionModel

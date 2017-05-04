@@ -13,7 +13,7 @@ local displayGroups = {
   title = display.newGroup(),
   difficultyButtons = display.newGroup(),
   characterButtons = display.newGroup(),
-  accept = display.newGroup()
+  startGame = display.newGroup()
 }
 scene.displayGroups = displayGroups
 local buttonTable = {}
@@ -111,6 +111,16 @@ function scene:drawDifficultyButtons(difficulties)
     end
 end
 
+function startGame()
+  controller.startGame()
+end
+
+function scene:drawStartGameButton(startGameImage)
+  newButton = buttons.imageButton(50, 200, startGame, startGameImage)
+  displayGroups.startGame:insert(newButton)
+  newButton.x = display.contentWidth / 2
+  newButton.y = display.contentHeight - 50
+end
 function scene:drawSelectedIndicator(image, level)
   local difficulty = {}
   difficulty.level = level
