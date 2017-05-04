@@ -4,31 +4,31 @@ local uuid = require("langUtils.uuid")
 
 local characters = {
   williamShakespere = {
-    id = uuid(),
+    id = "shakespere",
     displayName = "William Shakespere",
     power = powers.swap,
     baseHealth = 200
   },
   hpLovecraft = {
-    id = uuid(),
+    id = "lovecraft",
     displayName = "H.P. Lovecraft",
     power = powers.void,
     baseHealth = 200
   },
   oscarWilde = {
-    id = uuid(),
+    id = "oscarwilde",
     displayName = "Oscar Wilde",
     power = "",
     baseHealth = 200
   },
   markTwain = {
-    id = uuid(),
+    id = "marktwain",
     displayName = "Mark Twain",
     power = "",
     baseHealth = 200
   },
   janeAusten = {
-    id = uuid(),
+    id = "janeausten",
     displayName = "Jane Austen",
     power = "",
     baseHealth = 200
