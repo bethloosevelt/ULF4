@@ -11,13 +11,20 @@ local controller = require("scenes.selection.selectionController")
 local gridProperties = nil
 local displayGroups = {
   title = display.newGroup(),
+  difficultyButtons = display.newGroup(),
   characterButtons = display.newGroup(),
   accept = display.newGroup()
 }
+scene.displayGroups = displayGroups
 local buttonTable = {}
+local difficultyIndicator = nil
 
 function selected(event)
   controller.procSelectEvent(event.target, scene)
+end
+
+function selectedDifficulty(event)
+  controller.procSelectDifficultyEvent(event.target, scene)
 end
 
 function drawCharacter(character, index)
@@ -45,6 +52,70 @@ function calibrateGrid(characters)
   gridProperties.x = function(index) return ((((index - 1)%gridProperties.size) + 1) * gridProperties.imageWidth) - (0.5 * gridProperties.imageWidth) end
   gridProperties.y = function(index) return ((math.floor((index - 1) / gridProperties.size) + 1) * gridProperties.imageHeight) - (0.5 * gridProperties.imageHeight)  end
   return gridProperties
+end
+
+function drawDifficultyIndicator(difficulty)
+  -- maybe put view constraints in a single place
+  local rowHeight = .08 * display.contentHeight
+  local rowWidth = display.contentWidth
+  local distanceFromBottom = display.contentHeight - .4 * display.contentHeight
+  local buttonWidth = rowWidth / 3
+  local new = false
+  if not difficultyIndicator then
+    local newButton = buttons.imageButton(rowHeight, buttonWidth, selectedDifficulty, difficulty.buttonImage)
+    difficultyIndicator = newButton
+    new = true
+  end
+  local x, y = nil, nil
+  y = distanceFromBottom - (.5*rowHeight)
+  if difficulty.level == "easy" then
+      x = 1*buttonWidth - .5*(buttonWidth)
+  end
+  if difficulty.level == "medium" then
+      x = 2*buttonWidth - .5*(buttonWidth)
+  end
+  if difficulty.level == "hard" then
+      x = 3*buttonWidth - .5*(buttonWidth)
+  end
+  if not new then
+    transition.moveTo( difficultyIndicator, { x=x, y=y, time=100 } )
+  else
+    difficultyIndicator.x = x
+    difficultyIndicator.y = y
+  end
+end
+function drawDifficultyButton(difficulty)
+    -- maybe put view constraints in a single place
+    local rowHeight = .08 * display.contentHeight
+    local rowWidth = display.contentWidth
+    local distanceFromBottom = display.contentHeight - .4 * display.contentHeight
+    local buttonWidth = rowWidth / 3
+    local newButton = buttons.imageButton(rowHeight, buttonWidth, selectedDifficulty, difficulty.buttonImage)
+    displayGroups.difficultyButtons:insert(newButton)
+    newButton.difficulty = difficulty.level
+    newButton.y = distanceFromBottom - (.5*rowHeight)
+    if difficulty.level == "easy" then
+        newButton.x = 1*buttonWidth - .5*(buttonWidth)
+    end
+    if difficulty.level == "medium" then
+        newButton.x = 2*buttonWidth - .5*(buttonWidth)
+    end
+    if difficulty.level == "hard" then
+        newButton.x = 3*buttonWidth - .5*(buttonWidth)
+    end
+end
+
+function scene:drawDifficultyButtons(difficulties)
+    for key, difficulty in pairs(difficulties) do
+        drawDifficultyButton(difficulty, false)
+    end
+end
+
+function scene:drawSelectedIndicator(image, level)
+  local difficulty = {}
+  difficulty.level = level
+  difficulty.buttonImage = image
+  drawDifficultyIndicator(difficulty)
 end
 
 function scene:drawCharacterButtons(characters)

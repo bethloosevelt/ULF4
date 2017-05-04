@@ -5,8 +5,9 @@ require("langUtils.tableUtils")
 local controller = {}
 
 controller.controlScene = function(selectionView)
-  local characters = model.characters
-  selectionView:drawCharacterButtons(characters)
+  selectionView:drawCharacterButtons(model.characters)
+  selectionView:drawDifficultyButtons(model.difficulties)
+  selectionView.displayGroups.difficultyButtons.isVisible = false
 end
 
 controller.procSelectEvent = function(eventTarget, selectionView)
@@ -19,6 +20,12 @@ controller.procSelectEvent = function(eventTarget, selectionView)
   model.selectedCharacterId = eventTarget.id
   characters[selectedCharacterKey].isSelected = true
   selectionView:update(characters)
+  selectionView.displayGroups.difficultyButtons.isVisible = true
+end
+
+controller.procSelectDifficultyEvent = function(eventTarget, selectionView)
+    model.selectedDifficulty = eventTarget.difficulty
+    selectionView:drawSelectedIndicator(model.selectedButtonImage, eventTarget.difficulty)
 end
 
 return controller

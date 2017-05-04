@@ -16,6 +16,20 @@ images.buttons = {
     characterSelectAccept = {
       defaultFilePath = buttonsBaseDir .. "playButton.png",
       overFilePath = buttonsBaseDir .. "playButtonDown.png"
+    },
+    difficulties = {
+        easy = {
+            defaultFilePath = buttonsBaseDir .. "easy.png"
+        },
+        medium = {
+            defaultFilePath = buttonsBaseDir .. "medium.png"
+        },
+        hard = {
+            defaultFilePath = buttonsBaseDir .. "hard.png"
+        }
+    },
+    selected = {
+        defaultFilePath = buttonsBaseDir .. "selected.png"
     }
 }
 
