@@ -15,8 +15,6 @@ local primarySceneGroup = nil
 local boardSceneGroup = display.newGroup()
 local board = nil
 
-
-
 scene.drawBoard = function(boardModel)
   index = 1
   for rowKey, row in pairs(board) do

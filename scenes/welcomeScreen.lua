@@ -31,7 +31,7 @@ function createStartGameButton()
 		defaultFile = images.buttons.startGame.defaultFilePath,
         overFile = images.buttons.startGame.overFilePath,
 		width=154, height=40,
-		onRelease = function() print(nextScene) print("FUCK") composer.gotoScene(nextScene, sceneTransitionOptions) end
+		onRelease = function() composer.gotoScene(nextScene, sceneTransitionOptions) end
 	}
 	startGameButton.x = display.contentCenterX
 	startGameButton.y = display.contentHeight - 125

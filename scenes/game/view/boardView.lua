@@ -12,7 +12,6 @@ function board(parent)
   for rowI=1, 4 do
     for tileI=1, 4  do
       newBoard[rowI][tileI] = tile(parent)
-      print(newBoard[rowI][tileI])
       newBoard[rowI][tileI].coordinates = {x=tileI, y=rowI}
     end
   end
