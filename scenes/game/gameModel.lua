@@ -16,10 +16,10 @@ function randomLetter()
     return string.sub(letters, index, index)
 end
 
-gameModelModule.newBoard = function(size)
+gameModelModule.newBoard = function()
   newBoard = {{}, {}, {}, {}}
-  for i=1, size do
-    for j=1, size do
+  for i=1, 4 do
+    for j=1, 4 do
       newBoard[i][j] = randomLetter()
     end
   end
@@ -30,7 +30,7 @@ gameModelModule.initModel = function(difficulty, characterID1, characterID2)
   local model = {}
   model.player1 = player(characterID1)
   model.player2 = player(characterID2)
-  model.gameBoard = gameModelModule.newBoard(4)
+  model.gameBoard = gameModelModule.newBoard()
   return model
 end
 

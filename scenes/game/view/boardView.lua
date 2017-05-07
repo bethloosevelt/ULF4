@@ -1,25 +1,19 @@
 
 local buttons = require("viewLibs.buttons")
-local tileImages = require("configs.tiles")
 local viewSpecs = require("scenes.game.view.viewSpecs")
+local sprites = require("viewLibs.sprites")
 
-function tileButton(image)
-  local tileSpecs = viewSpecs.boardViewSpecs.tileSpecs
-  local foo = function() print("asd") end
-  return buttons.imageButton(tileSpecs.height, tileSpecs.width, foo, image)
+function tile(parent)
+  return sprites.alphabet(parent)
 end
 
-function tile(letter)
-  print(letter)
-  print(tileImages[letter])
-  return tileButton(tileImages[letter])
-end
-
-function board(boardModel)
+function board(parent)
   newBoard = {{}, {}, {}, {}}
-  for rowI, row in pairs(boardModel) do
-    for tileI, letter in pairs(row) do
-      newBoard[rowI][tileI] = tile(letter)
+  for rowI=1, 4 do
+    for tileI=1, 4  do
+      newBoard[rowI][tileI] = tile(parent)
+      print(newBoard[rowI][tileI])
+      newBoard[rowI][tileI].coordinates = {x=tileI, y=rowI}
     end
   end
   return newBoard
