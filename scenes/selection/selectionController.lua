@@ -1,4 +1,5 @@
 
+local scenes = require("scenes.scenes")
 local model = require("scenes.selection.selectionModel")
 require("langUtils.tableUtils")
 
@@ -32,9 +33,22 @@ controller.procSelectDifficultyEvent = function(eventTarget, selectionView)
     selectionView.displayGroups.startGame.isVisible = true
 end
 
-controller.startGame = function()
-  print("CHOSEN CHAR: " .. model.selectedCharacterId)
-  print("CHOSEN DIFFICULTY " .. model.selectedDifficulty)
+controller.startGame = function(composer)
+
+  local characters = {
+    player1 = model.selectedCharacterId,
+    player2 = "oscarWilde"
+  }
+  local params = {
+    difficulty = model.selectedDifficulty,
+    characters = characters
+  }
+  local options = {
+  	    effect = "fade",
+  	    time = 400,
+        params = params
+  }
+  composer.gotoScene( scenes.game, options )
 end
 
 return controller

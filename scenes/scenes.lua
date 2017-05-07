@@ -2,7 +2,7 @@
 local scenes = {
   welcomeScreen = "scenes.welcomeScreen",
   characterSelect = "scenes.selection.selectionView",
-  game = ""
+  game = "scenes.game.view.gameView"
 }
 
 return scenes
