@@ -31,7 +31,7 @@ function createStartGameButton()
 		defaultFile = images.buttons.startGame.defaultFilePath,
         overFile = images.buttons.startGame.overFilePath,
 		width=154, height=40,
-		onRelease = function() print(nextScene) print("FUCK") composer.gotoScene(nextScene, sceneTransitionOptions) end
+		onRelease = function() composer.gotoScene(nextScene, sceneTransitionOptions) end
 	}
 	startGameButton.x = display.contentCenterX
 	startGameButton.y = display.contentHeight - 125
@@ -39,7 +39,7 @@ function createStartGameButton()
 end
 
 function createBackgroundImage(sceneGroup)
-	local logo = display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, 200)
+	local logo = display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, display.contentHeight * .3)
 	displayObjectTransformers.scaleToScreenX(logo, 40) -- 40px padding on each side
 	return logo
 end

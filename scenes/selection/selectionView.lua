@@ -112,7 +112,7 @@ function scene:drawDifficultyButtons(difficulties)
 end
 
 function startGame()
-  controller.startGame()
+  controller.startGame(composer)
 end
 
 function scene:drawStartGameButton(startGameImage)
@@ -164,6 +164,14 @@ function scene:create( event )
 end
 
 function scene:destroy( event )
+  for key, button in pairs(buttonTable) do
+    if button then
+      button:removeSelf()
+    end
+  end
+  if difficultyIndicator then
+    difficultyIndicator:removeSelf()
+  end
 end
 
 -- Listener setup
