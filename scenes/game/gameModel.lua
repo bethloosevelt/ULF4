@@ -1,12 +1,15 @@
 local gameModelModule= {}
-local characters = require("configs.characters")
+local characterModule = require("configs.characters")
+local characters = characterModule.characters
 
 -- perhaps
 function player(characterID)
   return {
     score = 0,
-    lastWord = "",
-    character = characters[characterID]
+    wordsUsed = {},
+    currentWord = "",
+    lastTileTouched = {x=nil, y=nil},
+    character = characterModule.getCharacterByID(characterID)
   }
 end
 
@@ -28,6 +31,7 @@ end
 
 gameModelModule.initModel = function(difficulty, characterID1, characterID2)
   local model = {}
+  model.turn = "player1"
   model.player1 = player(characterID1)
   model.player2 = player(characterID2)
   model.gameBoard = gameModelModule.newBoard()

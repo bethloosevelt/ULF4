@@ -11,10 +11,7 @@ tileSpecs.y = function(index) return ((math.floor((index - 1) / 4) + 1) * tileSp
 
 
 viewSpecs.boardViewSpecs = {
-  x = function() return display.contentWidth / 2 end,
-  y = function() return display.contentHeight / 2 end,
   tileSpecs = tileSpecs,
-  width = function() return display.contentWidth end
 }
 
 return viewSpecs

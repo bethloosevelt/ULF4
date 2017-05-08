@@ -3,7 +3,7 @@ local sprites = {}
 sprites.spriteSheets = {
   alphabet = {
       filePath = "assets/images/spriteSheets/alphabet.png",
-      frames = 26,
+      frames = 52,
       frameWidth = 256,
       frameHeight = 256
   }

@@ -1,8 +1,10 @@
 
 local powers = require("configs.powers")
 local uuid = require("langUtils.uuid")
+require("langUtils.tableUtils")
 
-local characters = {
+local characterModule = {}
+characterModule.characters = {
   williamShakespere = {
     id = uuid(),
     displayName = "William Shakespere",
@@ -34,5 +36,9 @@ local characters = {
     baseHealth = 200
   }
 }
+characterModule.getCharacterByID = function(id)
+  local key = table.where(characterModule.characters, function(character) return character.id == id end)
+  return characterModule.characters[key]
+end
 
-return characters
+return characterModule

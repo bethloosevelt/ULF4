@@ -1,13 +1,13 @@
 local selectionModel = {}
 
-local characters = require("configs.characters")
+local characterModule = require("configs.characters")
+local characters = characterModule.characters
 local images = require("configs.images")
 local scenes = require("scenes.scenes")
 local difficulty = require("configs.difficulty")
-
 local charactersForSelectionScreen = characters
-
 local characterSelectImages = images.characterSelectImages
+
 for key, index in pairs(characters) do
   characters[key].images = characterSelectImages[key]
   characters[key].isSelected = false
