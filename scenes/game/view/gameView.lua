@@ -48,6 +48,10 @@ function playTileSound()
   audio.play(soundEffects.typewriter[index])
 end
 
+function playErrorSound()
+  audio.play(soundEffects.error)
+end
+
 scene.drawBoard = function(boardModel)
   index = 1
   for rowKey, row in pairs(board) do
@@ -72,18 +76,17 @@ scene.refreshBoard = function(event)
   controller.refreshBoard(scene)
 end
 
-local tileTouched = function(event)
-  controller.processTileTouch(event.coordinates, scene)
-end
-
 function setUpTileListeners()
   local touched = function(event)
     if event.phase == "ended" then
-      playTileSound()
-      if event.target.frame <= 26 then
-        event.target:setFrame(event.target.frame + 26)
+      if controller.processTileTouch(event.target.coordinates, scene) then
+        playTileSound()
+        if event.target.frame <= 26 then
+          event.target:setFrame(event.target.frame + 26)
+        end
+      else
+        playErrorSound()
       end
-      boardDisplayGroup:dispatchEvent({name= "tileTouched", coordinates = event.target.coordinates})
     end
   end
   for rowKey, row in pairs(board) do
@@ -111,9 +114,10 @@ function initBackgrounds()
 end
 
 function loadSoundEffects()
+  soundEffects.error = audio.loadSound(soundEffectsConfig.soundEffects.error)
   soundEffects.typewriter = {
-    audio.loadSound( soundEffectsConfig.soundEffects.typewriter[1]),
-    audio.loadSound( soundEffectsConfig.soundEffects.typewriter[2])
+    audio.loadSound(soundEffectsConfig.soundEffects.typewriter[1]),
+    audio.loadSound(soundEffectsConfig.soundEffects.typewriter[2])
   }
 end
 
@@ -135,7 +139,6 @@ end
 function scene:destroy( event )
 end
 
-boardDisplayGroup:addEventListener( "tileTouched", tileTouched)
 scene:addEventListener( "create", scene )
 scene:addEventListener( "destroy", scene )
 scene:addEventListener( "update", scene )
