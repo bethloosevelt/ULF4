@@ -7,6 +7,7 @@ local composer = require("composer")
 local scene = composer.newScene()
 local widget = require "widget"
 local buttons = require("viewLibs.buttons")
+local soundEffectsConfig = require("configs.sounds")
 
 local controller = require("scenes.game.gameController")
 local viewSpecs = require("scenes.game.view.viewSpecs")
@@ -40,6 +41,12 @@ local WIDTH_OF_ANIMATION_AREA = display.contentWidth
 local CENTER_OF_ANIMATION_AREA_x = display.contentWidth / 2
 local TOP_OF_ANIMATION_AREA = 0
 
+local soundEffects = {}
+
+function playTileSound()
+  local index = math.random(2)
+  audio.play(soundEffects.typewriter[index])
+end
 
 scene.drawBoard = function(boardModel)
   index = 1
@@ -72,6 +79,7 @@ end
 function setUpTileListeners()
   local touched = function(event)
     if event.phase == "ended" then
+      playTileSound()
       if event.target.frame <= 26 then
         event.target:setFrame(event.target.frame + 26)
       end
@@ -93,7 +101,7 @@ end
 
 function initBackgrounds()
   local boardBackground = display.newRect( boardDisplayGroup, CENTER_OF_BOARD_X, display.contentWidth / 2, WIDTH_OF_BOARD, HEIGHT_OF_BOARD )
-  boardBackground:setFillColor( 1, 1, 1 )
+  boardBackground:setFillColor( 8 / 256, 11 / 256, 33 / 256 )
   local actionBarBackground = display.newRect( actionBarDisplayGroup, CENTER_OF_ACTION_BAR_X, HEIGHT_OF_ACTION_BAR / 2, WIDTH_OF_ACTION_BAR, HEIGHT_OF_ACTION_BAR )
   actionBarBackground:setFillColor( 1, .5, .5 )
   local infoBarBackground = display.newRect( infoBarDisplayGroup, CENTER_OF_INFO_BAR_X, HEIGHT_OF_INFO_BAR / 2, WIDTH_OF_INFO_BAR, HEIGHT_OF_INFO_BAR)
@@ -102,8 +110,16 @@ function initBackgrounds()
   animationAreaBackground:setFillColor(.5, 1, .5)
 end
 
+function loadSoundEffects()
+  soundEffects.typewriter = {
+    audio.loadSound( soundEffectsConfig.soundEffects.typewriter[1]),
+    audio.loadSound( soundEffectsConfig.soundEffects.typewriter[2])
+  }
+end
+
 function scene:create( event )
   composer.removeHidden()
+  loadSoundEffects()
   primarySceneGroup = self.view
   primarySceneGroup:insert(boardDisplayGroup)
   primarySceneGroup:insert(infoBarDisplayGroup)
