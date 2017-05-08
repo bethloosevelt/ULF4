@@ -10,17 +10,29 @@ local buttons = require("viewLibs.buttons")
 local soundEffectsConfig = require("configs.sounds")
 local colors = require("configs.colors")
 local fonts = require("configs.fonts")
+local images = require("configs.images")
 
 local controller = require("scenes.game.gameController")
 local viewSpecs = require("scenes.game.view.viewSpecs")
 local boardView = require("scenes.game.view.boardView")
 local boardDisplayGroup = display.newGroup()
+
+-- Action Bar References
 local actionBarDisplayGroup = display.newGroup()
-local actionBarDisplayGroup = display.newGroup()
+local powerButton = nil
+local attackButton = nil
+local cancelButton = nil
 
 -- Info Bar References
 local infoBarDisplayGroup = display.newGroup()
 local currentWordLabel = nil
+
+-- These need to be manually deleted when this scene ends
+local disposables = {
+  powerButton,
+  attackButton,
+  cancelButton
+}
 
 local animationAreaDisplayGroup = display.newGroup()
 local primarySceneGroup = nil
@@ -35,6 +47,12 @@ local HEIGHT_OF_ACTION_BAR = display.contentHeight - TOP_OF_BOARD - HEIGHT_OF_BO
 local WIDTH_OF_ACTION_BAR = display.contentWidth
 local CENTER_OF_ACTION_BAR_X = display.contentWidth / 2
 local TOP_OF_ACTION_BAR = TOP_OF_BOARD + HEIGHT_OF_BOARD
+local BUTTON_HEIGHT = (HEIGHT_OF_ACTION_BAR - 65)
+local BUTTON_WIDTH = BUTTON_HEIGHT * 1.61
+local BUTTON_Y = HEIGHT_OF_ACTION_BAR / 2
+local ATTACK_BUTTON_X = display.contentWidth / 2
+local POWER_BUTTON_X = 20 + (BUTTON_WIDTH / 2)
+local CANCEL_BUTTON_X = display.contentWidth - 20 - (BUTTON_WIDTH / 2)
 
 
 local HEIGHT_OF_INFO_BAR = 100
@@ -123,11 +141,43 @@ scene.updateInfoBar = function(wordLabelText)
   currentWordLabel.text = wordLabelText
 end
 
+function initActionBar()
+  powerButton = widget.newButton({
+		defaultFile = images.buttons.abilityBar.power.defaultFilePath,
+    x = POWER_BUTTON_X,
+    y = BUTTON_Y,
+		width = BUTTON_WIDTH,
+    height = BUTTON_HEIGHT,
+		onRelease = controller.powerActivated
+  })
+  actionBarDisplayGroup:insert(powerButton)
+
+  attackButton = widget.newButton({
+		defaultFile = images.buttons.abilityBar.attack.defaultFilePath,
+    x = ATTACK_BUTTON_X,
+    y = BUTTON_Y,
+		width = BUTTON_WIDTH,
+    height = BUTTON_HEIGHT,
+		onRelease = controller.attackActivated
+  })
+  actionBarDisplayGroup:insert(attackButton)
+
+  cancelButton = widget.newButton({
+		defaultFile = images.buttons.abilityBar.cancel.defaultFilePath,
+    x = CANCEL_BUTTON_X,
+    y = BUTTON_Y,
+		width = BUTTON_WIDTH,
+    height = BUTTON_HEIGHT,
+		onRelease = controller.attackActivated
+  })
+  actionBarDisplayGroup:insert(cancelButton)
+end
+
 function initBackgrounds()
   local boardBackground = display.newRect( boardDisplayGroup, CENTER_OF_BOARD_X, display.contentWidth / 2, WIDTH_OF_BOARD, HEIGHT_OF_BOARD )
   boardBackground:setFillColor(unpack(colors.DARK_BLUE))
   local actionBarBackground = display.newRect( actionBarDisplayGroup, CENTER_OF_ACTION_BAR_X, HEIGHT_OF_ACTION_BAR / 2, WIDTH_OF_ACTION_BAR, HEIGHT_OF_ACTION_BAR )
-  actionBarBackground:setFillColor( 1, .5, .5 )
+  actionBarBackground:setFillColor(unpack(colors.DARK_BLUE))
   local infoBarBackground = display.newRect( infoBarDisplayGroup, CENTER_OF_INFO_BAR_X, HEIGHT_OF_INFO_BAR / 2, WIDTH_OF_INFO_BAR, HEIGHT_OF_INFO_BAR)
   infoBarBackground:setFillColor(unpack(colors.DARK_BLUE))
   local animationAreaBackground = display.newRect( animationAreaDisplayGroup, CENTER_OF_ANIMATION_AREA_x, HEIGHT_OF_ANIMATION_AREA / 2, WIDTH_OF_ANIMATION_AREA, HEIGHT_OF_ANIMATION_AREA )
@@ -158,6 +208,8 @@ function scene:create( event )
   initBackgrounds()
 
   initInfoBar()
+
+  initActionBar()
 
   controller.controlScene(scene, event.params.difficulty, event.params.characters)
 end

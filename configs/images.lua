@@ -9,6 +9,20 @@ images.backgrounds = {
 
 local buttonsBaseDir = "assets/images/buttons/"
 images.buttons = {
+    abilityBar = {
+      attack = {
+        defaultFilePath = buttonsBaseDir .. "attack_button.png",
+        overFilePath = buttonsBaseDir .. "attack_button.png"
+      },
+      power = {
+        defaultFilePath = buttonsBaseDir .. "power_button.png",
+        overFilePath = buttonsBaseDir .. "power_button.png"
+      },
+      cancel = {
+        defaultFilePath = buttonsBaseDir .. "cancel_button.png",
+        overFilePath = buttonsBaseDir .. "cancel_button.png"
+      }
+    },
     startGame = {
         defaultFilePath = buttonsBaseDir .. "playButton.png",
         overFilePath = buttonsBaseDir .. "playButtonDown.png"
