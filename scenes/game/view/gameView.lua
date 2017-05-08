@@ -15,7 +15,11 @@ local boardView = require("scenes.game.view.boardView")
 local boardDisplayGroup = display.newGroup()
 local actionBarDisplayGroup = display.newGroup()
 local actionBarDisplayGroup = display.newGroup()
+
+-- Info Bar References
 local infoBarDisplayGroup = display.newGroup()
+local currentWordLabel = nil
+
 local animationAreaDisplayGroup = display.newGroup()
 local primarySceneGroup = nil
 local board = nil
@@ -102,6 +106,20 @@ scene.createBoard = function(boardModel)
   scene.drawBoard(boardModel)
 end
 
+function initInfoBar()
+  currentWordLabel = display.newText({
+    text = "TEST",
+    parent = infoBarDisplayGroup,
+    x = display.contentWidth / 2,
+    y = HEIGHT_OF_INFO_BAR / 2,
+    fontSize = HEIGHT_OF_INFO_BAR - 10
+  })
+end
+
+scene.updateInfoBar = function(wordLabelText)
+  currentWordLabel.text = wordLabelText
+end
+
 function initBackgrounds()
   local boardBackground = display.newRect( boardDisplayGroup, CENTER_OF_BOARD_X, display.contentWidth / 2, WIDTH_OF_BOARD, HEIGHT_OF_BOARD )
   boardBackground:setFillColor( 8 / 256, 11 / 256, 33 / 256 )
@@ -124,6 +142,7 @@ end
 function scene:create( event )
   composer.removeHidden()
   loadSoundEffects()
+
   primarySceneGroup = self.view
   primarySceneGroup:insert(boardDisplayGroup)
   primarySceneGroup:insert(infoBarDisplayGroup)
@@ -132,7 +151,11 @@ function scene:create( event )
   boardDisplayGroup.y = TOP_OF_BOARD
   actionBarDisplayGroup.y = TOP_OF_ACTION_BAR
   infoBarDisplayGroup.y = TOP_OF_INFO_BAR
+
   initBackgrounds()
+
+  initInfoBar()
+
   controller.controlScene(scene, event.params.difficulty, event.params.characters)
 end
 

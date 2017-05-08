@@ -28,8 +28,7 @@ controller.processTileTouch = function(coordinates, scene)
   if isValidTile(coordinates, model.turn) then
     model.player1.currentWord = model.player1.currentWord .. model.gameBoard[coordinates.y][coordinates.x]
     model.player1.lastTileTouched = coordinates
-    print(model.player1.character.displayName .. " is scoring the word: ")
-    print(model.player1.currentWord)
+    scene.updateInfoBar(model.player1.currentWord)
     return true
   end
   return false
