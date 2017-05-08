@@ -1,7 +1,9 @@
 local modelModule = require("scenes.game.gameModel")
-
+require("langUtils.stringUtils")
+local scoring = require("configs.scoring")
 local controller = {}
 local model = nil
+
 
 controller.controlScene = function(view, difficulty, chosenCharacters)
   print(chosenCharacters.player1)
@@ -29,10 +31,24 @@ controller.processTileTouch = function(coordinates, scene)
     model.player1.currentWord = model.player1.currentWord .. model.gameBoard[coordinates.y][coordinates.x]
     model.player1.lastTileTouched = coordinates
     scene.updateInfoBar(model.player1.currentWord)
+    scene.updateActionBar(calculateScore("player1"))
     return true
   end
   return false
+end
 
+function calculateScore(player)
+  local score = 0
+  local playerWord = model[player].currentWord
+  for i=1, string.len(playerWord) do
+    score = score + scoring.perLetter[playerWord[i]]
+  end
+  return score
+end
+
+controller.attackActivated = function()
+  local score = calculateScore("player1")
+  print(score)
 end
 
 return controller

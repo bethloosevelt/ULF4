@@ -141,6 +141,10 @@ scene.updateInfoBar = function(wordLabelText)
   currentWordLabel.text = wordLabelText
 end
 
+scene.updateActionBar = function(currentScore)
+  attackButton:setLabel(tostring(currentScore))
+end
+
 function initActionBar()
   powerButton = widget.newButton({
 		defaultFile = images.buttons.abilityBar.power.defaultFilePath,
@@ -158,8 +162,14 @@ function initActionBar()
     y = BUTTON_Y,
 		width = BUTTON_WIDTH,
     height = BUTTON_HEIGHT,
-		onRelease = controller.attackActivated
+		onRelease = controller.attackActivated,
+    font = fonts.body,
+    fontSize = 80,
+    labelXOffset = -30,
+    labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } }
   })
+
+  attackButton:setLabel("0")
   actionBarDisplayGroup:insert(attackButton)
 
   cancelButton = widget.newButton({
