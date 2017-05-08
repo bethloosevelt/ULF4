@@ -47,15 +47,15 @@ local HEIGHT_OF_ACTION_BAR = display.contentHeight - TOP_OF_BOARD - HEIGHT_OF_BO
 local WIDTH_OF_ACTION_BAR = display.contentWidth
 local CENTER_OF_ACTION_BAR_X = display.contentWidth / 2
 local TOP_OF_ACTION_BAR = TOP_OF_BOARD + HEIGHT_OF_BOARD
-local BUTTON_HEIGHT = (HEIGHT_OF_ACTION_BAR - 65)
+
+local BUTTON_HEIGHT = HEIGHT_OF_ACTION_BAR * .7
 local BUTTON_WIDTH = BUTTON_HEIGHT * 1.61
 local BUTTON_Y = HEIGHT_OF_ACTION_BAR / 2
 local ATTACK_BUTTON_X = display.contentWidth / 2
 local POWER_BUTTON_X = 20 + (BUTTON_WIDTH / 2)
 local CANCEL_BUTTON_X = display.contentWidth - 20 - (BUTTON_WIDTH / 2)
 
-
-local HEIGHT_OF_INFO_BAR = 100
+local HEIGHT_OF_INFO_BAR = display.contentHeight * .1
 local WIDTH_OF_INFO_BAR = display.contentWidth
 local CENTER_OF_INFO_BAR_X = display.contentWidth / 2
 local TOP_OF_INFO_BAR = TOP_OF_BOARD - HEIGHT_OF_INFO_BAR

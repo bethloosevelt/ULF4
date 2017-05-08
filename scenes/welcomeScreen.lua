@@ -39,7 +39,7 @@ function createStartGameButton()
 end
 
 function createBackgroundImage(sceneGroup)
-	local logo = display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, 200)
+	local logo = display.newImage( sceneGroup, images.backgrounds.startScreen.filePath, display.contentCenterX, display.contentHeight * .3)
 	displayObjectTransformers.scaleToScreenX(logo, 40) -- 40px padding on each side
 	return logo
 end
