@@ -51,4 +51,11 @@ controller.attackActivated = function()
   print(score)
 end
 
+controller.cancelCurrentAction = function(scene)
+  model.player1.currentWord = ""
+  scene.updateInfoBar(model.player1.currentWord)
+  scene.updateBoardSprites(model.gameBoard)
+  scene.updateActionBar(0)
+end
+
 return controller

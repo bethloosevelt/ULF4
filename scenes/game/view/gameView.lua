@@ -91,7 +91,7 @@ end
 scene.updateBoardSprites = function(boardModel)
   for rowKey, row in pairs(board) do
     for tileKey, tile in pairs(row) do
-      tile:setFrame(letterToNumber(boardModel[rowKey][tileKey]))
+      tile:setFrame(string.letterToNumber(boardModel[rowKey][tileKey]))
     end
   end
 end
@@ -145,6 +145,10 @@ scene.updateActionBar = function(currentScore)
   attackButton:setLabel(tostring(currentScore))
 end
 
+function cancel()
+  controller.cancelCurrentAction(scene)
+end
+
 function initActionBar()
   powerButton = widget.newButton({
 		defaultFile = images.buttons.abilityBar.power.defaultFilePath,
@@ -178,7 +182,7 @@ function initActionBar()
     y = BUTTON_Y,
 		width = BUTTON_WIDTH,
     height = BUTTON_HEIGHT,
-		onRelease = controller.attackActivated
+		onRelease = cancel
   })
   actionBarDisplayGroup:insert(cancelButton)
 end
