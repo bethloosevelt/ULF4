@@ -164,7 +164,7 @@ function initActionBar()
     height = BUTTON_HEIGHT,
 		onRelease = controller.attackActivated,
     font = fonts.body,
-    fontSize = 80,
+    fontSize = BUTTON_HEIGHT * .7,
     labelXOffset = -30,
     labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } }
   })
