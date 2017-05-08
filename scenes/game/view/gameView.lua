@@ -8,6 +8,8 @@ local scene = composer.newScene()
 local widget = require "widget"
 local buttons = require("viewLibs.buttons")
 local soundEffectsConfig = require("configs.sounds")
+local colors = require("configs.colors")
+local fonts = require("configs.fonts")
 
 local controller = require("scenes.game.gameController")
 local viewSpecs = require("scenes.game.view.viewSpecs")
@@ -108,11 +110,12 @@ end
 
 function initInfoBar()
   currentWordLabel = display.newText({
-    text = "TEST",
+    text = "",
     parent = infoBarDisplayGroup,
     x = display.contentWidth / 2,
     y = HEIGHT_OF_INFO_BAR / 2,
-    fontSize = HEIGHT_OF_INFO_BAR - 10
+    font = fonts.body,
+    fontSize = HEIGHT_OF_INFO_BAR - 40
   })
 end
 
@@ -122,11 +125,11 @@ end
 
 function initBackgrounds()
   local boardBackground = display.newRect( boardDisplayGroup, CENTER_OF_BOARD_X, display.contentWidth / 2, WIDTH_OF_BOARD, HEIGHT_OF_BOARD )
-  boardBackground:setFillColor( 8 / 256, 11 / 256, 33 / 256 )
+  boardBackground:setFillColor(unpack(colors.DARK_BLUE))
   local actionBarBackground = display.newRect( actionBarDisplayGroup, CENTER_OF_ACTION_BAR_X, HEIGHT_OF_ACTION_BAR / 2, WIDTH_OF_ACTION_BAR, HEIGHT_OF_ACTION_BAR )
   actionBarBackground:setFillColor( 1, .5, .5 )
   local infoBarBackground = display.newRect( infoBarDisplayGroup, CENTER_OF_INFO_BAR_X, HEIGHT_OF_INFO_BAR / 2, WIDTH_OF_INFO_BAR, HEIGHT_OF_INFO_BAR)
-  infoBarBackground:setFillColor(.5, .5, 1)
+  infoBarBackground:setFillColor(unpack(colors.DARK_BLUE))
   local animationAreaBackground = display.newRect( animationAreaDisplayGroup, CENTER_OF_ANIMATION_AREA_x, HEIGHT_OF_ANIMATION_AREA / 2, WIDTH_OF_ANIMATION_AREA, HEIGHT_OF_ANIMATION_AREA )
   animationAreaBackground:setFillColor(.5, 1, .5)
 end
