@@ -104,7 +104,9 @@ end
 
 function setUpTileListeners()
   local touched = function(event)
+    animations.tiltRandom(event.target)
     if event.phase == "ended" then
+      animations.untilt(event.target)
       if controller.processTileTouch(event.target.coordinates, scene) then
         playTileSound()
         animations.pulse(attackButton)
