@@ -205,14 +205,18 @@ function initActionBar()
 end
 
 function initBackgrounds()
-  local boardBackground = display.newRect( boardDisplayGroup, CENTER_OF_BOARD_X, display.contentWidth / 2, WIDTH_OF_BOARD, HEIGHT_OF_BOARD )
-  boardBackground:setFillColor(unpack(colors.DARK_BLUE))
-  local actionBarBackground = display.newRect( actionBarDisplayGroup, CENTER_OF_ACTION_BAR_X, HEIGHT_OF_ACTION_BAR / 2, WIDTH_OF_ACTION_BAR, HEIGHT_OF_ACTION_BAR )
-  actionBarBackground:setFillColor(unpack(colors.DARK_BLUE))
-  local infoBarBackground = display.newRect( infoBarDisplayGroup, CENTER_OF_INFO_BAR_X, HEIGHT_OF_INFO_BAR / 2, WIDTH_OF_INFO_BAR, HEIGHT_OF_INFO_BAR)
-  infoBarBackground:setFillColor(unpack(colors.DARK_BLUE))
+  -- local boardBackground = display.newRect( boardDisplayGroup, CENTER_OF_BOARD_X, display.contentWidth / 2, WIDTH_OF_BOARD, HEIGHT_OF_BOARD )
+  -- boardBackground:setFillColor(unpack(colors.DARK_BLUE))
+  -- local actionBarBackground = display.newRect( actionBarDisplayGroup, CENTER_OF_ACTION_BAR_X, HEIGHT_OF_ACTION_BAR / 2, WIDTH_OF_ACTION_BAR, HEIGHT_OF_ACTION_BAR )
+  -- actionBarBackground:setFillColor(unpack(colors.DARK_BLUE))
+  -- local infoBarBackground = display.newRect( infoBarDisplayGroup, CENTER_OF_INFO_BAR_X, HEIGHT_OF_INFO_BAR / 2, WIDTH_OF_INFO_BAR, HEIGHT_OF_INFO_BAR)
+  -- infoBarBackground:setFillColor(unpack(colors.DARK_BLUE))
+  local backGround = display.newImageRect( boardDisplayGroup, images.backgrounds.boardBackground.filePath,  WIDTH_OF_BOARD, HEIGHT_OF_ACTION_BAR + HEIGHT_OF_INFO_BAR + HEIGHT_OF_BOARD )
+  backGround.x = CENTER_OF_BOARD_X
+  backGround.y = display.contentHeight - ((HEIGHT_OF_ACTION_BAR + HEIGHT_OF_INFO_BAR + HEIGHT_OF_BOARD) / 2) - (HEIGHT_OF_BOARD / 2) - 10
   local animationAreaBackground = display.newRect( animationAreaDisplayGroup, CENTER_OF_ANIMATION_AREA_x, HEIGHT_OF_ANIMATION_AREA / 2, WIDTH_OF_ANIMATION_AREA, HEIGHT_OF_ANIMATION_AREA )
   animationAreaBackground:setFillColor(unpack(colors.OFF_WHITE))
+
 end
 
 function loadSoundEffects()

@@ -4,6 +4,9 @@ local images = {}
 images.backgrounds = {
     startScreen = {
         filePath = "assets/images/backgrounds/logo.png"
+    },
+    boardBackground = {
+      filePath = "assets/images/backgrounds/background.jpg"
     }
 }
 
