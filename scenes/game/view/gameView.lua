@@ -136,6 +136,7 @@ function initInfoBar()
     x = display.contentWidth / 2,
     y = HEIGHT_OF_INFO_BAR / 2 + .1 * HEIGHT_OF_INFO_BAR,
     font = fonts.body,
+    color = colors.OFF_WHITE,
     fontSize = CURRENT_WORD_FONT_SIZE
   })
 end
@@ -173,7 +174,7 @@ function initActionBar()
     font = fonts.body,
     fontSize = BUTTON_HEIGHT * .7,
     labelXOffset = -.15 * BUTTON_WIDTH,
-    labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } }
+    labelColor = { default= colors.OFF_WHITE, over={ 0, 0, 0, 0.5 } }
   })
 
   attackButton:setLabel("0")
@@ -188,6 +189,7 @@ function initActionBar()
 		onRelease = cancel
   })
   actionBarDisplayGroup:insert(cancelButton)
+
 end
 
 function initBackgrounds()
@@ -198,7 +200,7 @@ function initBackgrounds()
   local infoBarBackground = display.newRect( infoBarDisplayGroup, CENTER_OF_INFO_BAR_X, HEIGHT_OF_INFO_BAR / 2, WIDTH_OF_INFO_BAR, HEIGHT_OF_INFO_BAR)
   infoBarBackground:setFillColor(unpack(colors.DARK_BLUE))
   local animationAreaBackground = display.newRect( animationAreaDisplayGroup, CENTER_OF_ANIMATION_AREA_x, HEIGHT_OF_ANIMATION_AREA / 2, WIDTH_OF_ANIMATION_AREA, HEIGHT_OF_ANIMATION_AREA )
-  animationAreaBackground:setFillColor(1, 1, 1)
+  animationAreaBackground:setFillColor(unpack(colors.OFF_WHITE))
 end
 
 function loadSoundEffects()
