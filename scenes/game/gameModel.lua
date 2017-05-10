@@ -4,13 +4,14 @@ local characters = characterModule.characters
 
 -- perhaps
 function player(characterID)
-  return {
+  newPlayer = {
     score = 0,
     wordsUsed = {},
     currentWord = "",
-    lastTileTouched = {x=nil, y=nil},
-    character = characterModule.getCharacterByID(characterID)
+    lastTileTouched = {x=nil, y=nil}
   }
+  newPlayer.character = characterModule.getCharacterByID(characterID)
+  return newPlayer
 end
 
 function randomLetter()

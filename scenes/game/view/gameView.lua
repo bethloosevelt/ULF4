@@ -11,6 +11,7 @@ local soundEffectsConfig = require("configs.sounds")
 local colors = require("configs.colors")
 local fonts = require("configs.fonts")
 local images = require("configs.images")
+local animations = require("viewLibs.animations")
 
 local controller = require("scenes.game.gameController")
 local viewSpecs = require("scenes.game.view.viewSpecs")
@@ -55,10 +56,11 @@ local ATTACK_BUTTON_X = display.contentWidth / 2
 local POWER_BUTTON_X = 20 + (BUTTON_WIDTH / 2)
 local CANCEL_BUTTON_X = display.contentWidth - 20 - (BUTTON_WIDTH / 2)
 
-local HEIGHT_OF_INFO_BAR = display.contentHeight * .1
+local HEIGHT_OF_INFO_BAR = display.contentHeight * .07
 local WIDTH_OF_INFO_BAR = display.contentWidth
 local CENTER_OF_INFO_BAR_X = display.contentWidth / 2
 local TOP_OF_INFO_BAR = TOP_OF_BOARD - HEIGHT_OF_INFO_BAR
+local CURRENT_WORD_FONT_SIZE = HEIGHT_OF_INFO_BAR * .85
 
 local HEIGHT_OF_ANIMATION_AREA = TOP_OF_INFO_BAR
 local WIDTH_OF_ANIMATION_AREA = display.contentWidth
@@ -105,6 +107,7 @@ function setUpTileListeners()
     if event.phase == "ended" then
       if controller.processTileTouch(event.target.coordinates, scene) then
         playTileSound()
+        animations.pulse(attackButton)
         if event.target.frame <= 26 then
           event.target:setFrame(event.target.frame + 26)
         end
@@ -133,7 +136,7 @@ function initInfoBar()
     x = display.contentWidth / 2,
     y = HEIGHT_OF_INFO_BAR / 2,
     font = fonts.body,
-    fontSize = HEIGHT_OF_INFO_BAR - 40
+    fontSize = CURRENT_WORD_FONT_SIZE
   })
 end
 

@@ -53,9 +53,11 @@ end
 
 controller.cancelCurrentAction = function(scene)
   model.player1.currentWord = ""
+  model.player1.lastTileTouched = {x=nil, y=nil}
   scene.updateInfoBar(model.player1.currentWord)
   scene.updateBoardSprites(model.gameBoard)
   scene.updateActionBar(0)
+
 end
 
 return controller

@@ -1,5 +1,5 @@
 local colors = {}
 
-colors.DARK_BLUE = {  8 / 256, 11 / 256, 33 / 256 }
+colors.DARK_BLUE = {  89 / 256, 90 / 256, 109 / 256 }
 
 return colors
