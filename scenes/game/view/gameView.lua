@@ -134,7 +134,7 @@ function initInfoBar()
     text = "",
     parent = infoBarDisplayGroup,
     x = display.contentWidth / 2,
-    y = HEIGHT_OF_INFO_BAR / 2,
+    y = HEIGHT_OF_INFO_BAR / 2 + .1 * HEIGHT_OF_INFO_BAR,
     font = fonts.body,
     fontSize = CURRENT_WORD_FONT_SIZE
   })
