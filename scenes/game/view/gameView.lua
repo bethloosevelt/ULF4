@@ -153,6 +153,14 @@ function cancel()
   controller.cancelCurrentAction(scene)
 end
 
+function squeez(event)
+  if event.phase == "began" then
+    animations.squeez(attackButton)
+  else
+    animations.release(attackButton)
+  end
+end
+
 function initActionBar()
   powerButton = widget.newButton({
 		defaultFile = images.buttons.abilityBar.power.defaultFilePath,
@@ -176,6 +184,7 @@ function initActionBar()
     labelXOffset = -.15 * BUTTON_WIDTH,
     labelColor = { default= colors.OFF_WHITE, over={ 0, 0, 0, 0.5 } }
   })
+  attackButton:addEventListener("touch", squeez)
 
   attackButton:setLabel("0")
   actionBarDisplayGroup:insert(attackButton)
