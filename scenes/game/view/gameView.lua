@@ -198,7 +198,7 @@ function initBackgrounds()
   local infoBarBackground = display.newRect( infoBarDisplayGroup, CENTER_OF_INFO_BAR_X, HEIGHT_OF_INFO_BAR / 2, WIDTH_OF_INFO_BAR, HEIGHT_OF_INFO_BAR)
   infoBarBackground:setFillColor(unpack(colors.DARK_BLUE))
   local animationAreaBackground = display.newRect( animationAreaDisplayGroup, CENTER_OF_ANIMATION_AREA_x, HEIGHT_OF_ANIMATION_AREA / 2, WIDTH_OF_ANIMATION_AREA, HEIGHT_OF_ANIMATION_AREA )
-  animationAreaBackground:setFillColor(.5, 1, .5)
+  animationAreaBackground:setFillColor(1, 1, 1)
 end
 
 function loadSoundEffects()
