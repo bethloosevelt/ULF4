@@ -139,9 +139,9 @@ function initInfoBar()
     x = display.contentWidth / 2,
     y = HEIGHT_OF_INFO_BAR / 2 + .1 * HEIGHT_OF_INFO_BAR,
     font = fonts.body,
-    color = colors.OFF_WHITE,
     fontSize = CURRENT_WORD_FONT_SIZE
   })
+  currentWordLabel:setFillColor(unpack(colors.DARK_BLUE))
 end
 
 scene.updateInfoBar = function(wordLabelText)
