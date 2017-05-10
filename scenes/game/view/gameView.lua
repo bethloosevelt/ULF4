@@ -104,7 +104,8 @@ end
 
 function setUpTileListeners()
   local touched = function(event)
-    animations.tiltRandom(event.target)
+    local x, y = event.target:contentToLocal(event.x, event.y)
+    animations.tilt(event.target, {x=x, y=y})
     if event.phase == "ended" then
       animations.untilt(event.target)
       if controller.processTileTouch(event.target.coordinates, scene) then
