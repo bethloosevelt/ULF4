@@ -6,39 +6,35 @@ require("langUtils.tableUtils")
 local characterModule = {}
 characterModule.characters = {
   williamShakespere = {
-    id = "shakespere",
+    id = "williamShakespere",
     displayName = "William Shakespere",
     power = powers.swap,
     baseHealth = 200
   },
   hpLovecraft = {
-    id = "lovecraft",
+    id = "hpLovecraft",
     displayName = "H.P. Lovecraft",
     power = powers.void,
     baseHealth = 200
   },
   oscarWilde = {
-    id = "oscarwilde",
+    id = "oscarWilde",
     displayName = "Oscar Wilde",
     power = "",
     baseHealth = 200
   },
   markTwain = {
-    id = "marktwain",
+    id = "markTwain",
     displayName = "Mark Twain",
     power = "",
     baseHealth = 200
   },
   janeAusten = {
-    id = "janeausten",
+    id = "janeAusten",
     displayName = "Jane Austen",
     power = "",
     baseHealth = 200
   }
 }
-characterModule.getCharacterByID = function(id)
-  local key = table.where(characterModule.characters, function(character) return character.id == id end)
-  return characterModule.characters[key]
-end
 
 return characterModule

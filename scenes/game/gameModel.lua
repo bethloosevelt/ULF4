@@ -10,7 +10,8 @@ function player(characterID)
     currentWord = "",
     lastTileTouched = {x=nil, y=nil}
   }
-  newPlayer.character = characterModule.getCharacterByID(characterID)
+  newPlayer.character = characterModule.characters[characterID]
+  print("selected " .. newPlayer.character.displayName .. " with "  .. newPlayer.character.baseHealth .. " health")
   return newPlayer
 end
 

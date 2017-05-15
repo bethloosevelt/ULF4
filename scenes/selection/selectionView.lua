@@ -20,6 +20,7 @@ local buttonTable = {}
 local difficultyIndicator = nil
 
 function selected(event)
+  print("event target id    " .. event.target.id)
   controller.procSelectEvent(event.target, scene)
 end
 
@@ -32,6 +33,7 @@ function drawCharacter(character, index)
   button.x = gridProperties.x(index)
   button.y = gridProperties.y(index)
   button.id = character.id
+  print(button.id)
   button.isSelected = character.isSelected
   button.index = index
   displayGroups.characterButtons:insert(button)
