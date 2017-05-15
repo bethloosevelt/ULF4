@@ -45,6 +45,9 @@ gameModelModule.initModel = function(difficulty, characterID1, characterID2)
   model.gameBoard = gameModelModule.newBoard()
   model.playerWords = loadAcceptedWords()
   print(#model.playerWords)
+  model.isValidPlayerWord = function(word) return table.binsearch(model.playerWords, word) ~= nil end
+  print(model.isValidPlayerWord("asdasdasdasd"))
+  print(model.isValidPlayerWord("fart"))
   return model
 end
 

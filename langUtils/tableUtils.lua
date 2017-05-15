@@ -22,7 +22,7 @@ table.print = function(t)
   end
 end
 
-function table.binsearch( t, value, fcompval, reversed )
+table.binsearch = function( t, value, fcompval, reversed )
 
   local fcompval = function( value ) return value end
   local fcomp = function( a,b )
@@ -41,8 +41,8 @@ function table.binsearch( t, value, fcompval, reversed )
      -- get compare value
      local value2 = fcompval( t[iMid] )
      -- get all values that match
-     value = value:lower()
-     value2 = value2:lower()
+     value = string.lower(value)
+     value2 = string.lower(value2)
      if value == value2 then
         local tfound,num = { iMid,iMid },iMid - 1
         while value == fcompval( t[num] ) do
