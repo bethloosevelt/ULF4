@@ -91,9 +91,17 @@ scene.drawBoard = function(boardModel)
 end
 
 scene.updateBoardSprites = function(boardModel)
+  local i = 1
   for rowKey, row in pairs(board) do
     for tileKey, tile in pairs(row) do
-      tile:setFrame(string.letterToNumber(boardModel[rowKey][tileKey]))
+        local d = i * 100
+        i = i + 1
+        timer.performWithDelay( d, function()
+            local w = tile.width
+            animations.shrinkHorizontal(tile)
+            tile:setFrame(string.letterToNumber(boardModel[rowKey][tileKey]))
+            timer.performWithDelay( 100, function() animations.growHorizontal(tile, w) end )
+        end )
     end
   end
 end
