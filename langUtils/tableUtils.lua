@@ -16,6 +16,22 @@ table.where = function(t, predicate)
   return nil
 end
 
+table.map(t, fn)
+  r = {}
+  for k, v in pairs(t) do
+    r[k] = fn(v)
+  end
+  return t
+end
+
+table.reduce(t, fn, base)
+  for k, v in pairs(t) do
+    base = fn(base, v)
+  end
+  return base
+end
+
+
 table.print = function(t)
   for k,v in pairs(t) do
     print(k .. " : " .. tostring(v))
