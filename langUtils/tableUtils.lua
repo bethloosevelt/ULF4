@@ -16,7 +16,7 @@ table.where = function(t, predicate)
   return nil
 end
 
-table.map(t, fn)
+table.map = function(t, fn)
   r = {}
   for k, v in pairs(t) do
     r[k] = fn(v)
@@ -24,7 +24,7 @@ table.map(t, fn)
   return t
 end
 
-table.reduce(t, fn, base)
+table.reduce = function(t, fn, base)
   for k, v in pairs(t) do
     base = fn(base, v)
   end
