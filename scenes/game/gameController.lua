@@ -3,12 +3,14 @@ require("langUtils.stringUtils")
 local scoring = require("configs.scoring")
 local controller = {}
 local model = nil
+local gameScene = nil
 
 
-controller.controlScene = function(view, difficulty, chosenCharacters)
+controller.controlScene = function(scene, difficulty, chosenCharacters)
   print(chosenCharacters.player1)
+  gameScene = scene
   model = modelModule.initModel(difficulty, chosenCharacters.player1, chosenCharacters.player2)
-  view.createBoard(model.gameBoard)
+  scene.createBoard(model.gameBoard)
 end
 
 controller.refreshBoard = function(scene)
@@ -46,17 +48,23 @@ function calculateScore(player)
   return score
 end
 
-controller.attackActivated = function()
-  local score = calculateScore("player1")
-  print(score)
-end
-
 controller.cancelCurrentAction = function(scene)
   model.player1.currentWord = ""
   model.player1.lastTileTouched = {x=nil, y=nil}
   scene.updateInfoBar(model.player1.currentWord)
   scene.updateBoardSprites(model.gameBoard)
   scene.updateActionBar(0)
+end
+
+controller.attackActivated = function()
+  local score = calculateScore("player1")
+  if model.isValidPlayerWord(model.player1.currentWord) then
+      model.player2.currentHealth = model.player2.currentHealth - score
+      print(model.player2.currentHealth)
+      controller.refreshBoard(gameScene)
+  end
+
+  controller.cancelCurrentAction(gameScene)
 
 end
 
