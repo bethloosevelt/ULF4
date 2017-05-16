@@ -69,6 +69,10 @@ local TOP_OF_ANIMATION_AREA = 0
 
 local soundEffects = {}
 
+function playTileRefreshSound()
+  audio.play(soundEffects.tile)
+end
+
 function playTileSound()
   local index = math.random(2)
   audio.play(soundEffects.typewriter[index])
@@ -98,6 +102,7 @@ scene.updateBoardSprites = function(boardModel)
         i = i + 1
         timer.performWithDelay( d, function()
             local w = tile.width
+            playTileRefreshSound()
             animations.shrinkHorizontal(tile)
             tile:setFrame(string.letterToNumber(boardModel[rowKey][tileKey]))
             timer.performWithDelay( 100, function() animations.growHorizontal(tile, w) end )
@@ -230,6 +235,7 @@ function loadSoundEffects()
     audio.loadSound(soundEffectsConfig.soundEffects.typewriter[1]),
     audio.loadSound(soundEffectsConfig.soundEffects.typewriter[2])
   }
+  soundEffects.tile = audio.loadSound(soundEffectsConfig.soundEffects.tile)
 end
 
 function scene:create( event )
