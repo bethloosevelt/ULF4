@@ -1,3 +1,19 @@
+
+table.take = function(table, n)
+    result = {}
+    for i=0, n do
+        result[#result + 1] = table[i]
+    end
+    return result
+end
+
+table.concat = function(t1,t2)
+    for i=1,#t2 do
+        t1[#t1+1] = t2[i]
+    end
+    return t1
+end
+
 table.count = function(t)
   local count = 0;
   for k, v in pairs(t) do

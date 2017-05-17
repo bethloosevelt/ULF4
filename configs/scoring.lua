@@ -29,4 +29,12 @@ scoring.perLetter = {
   Z = 10,
 }
 
+scoring.ofWord = function(word)
+  local score = 0
+  for i=1, string.len(word) do
+    score = score + scoring.perLetter[string.upper(word[i])]
+  end
+  return score
+end
+
 return scoring

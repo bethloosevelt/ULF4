@@ -37,17 +37,20 @@ function loadAcceptedWords()
   return fileUtils.readLinesFromFile(wordsConfig.playerWords.filePath)
 end
 
+function loadAiWords()
+  return fileUtils.readLinesFromFile(wordsConfig.aiWords.filePath)
+end
+
 gameModelModule.initModel = function(difficulty, characterID1, characterID2)
   local model = {}
   model.turn = "player1"
+  model.difficulty = difficulty
   model.player1 = player(characterID1)
   model.player2 = player(characterID2)
   model.gameBoard = gameModelModule.newBoard()
   model.playerWords = loadAcceptedWords()
-  print(#model.playerWords)
+  model.aiWords = loadAiWords()
   model.isValidPlayerWord = function(word) return table.binsearch(model.playerWords, word) ~= nil end
-  print(model.isValidPlayerWord("asdasdasdasd"))
-  print(model.isValidPlayerWord("fart"))
   return model
 end
 

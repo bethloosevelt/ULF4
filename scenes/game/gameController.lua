@@ -4,7 +4,7 @@ local scoring = require("configs.scoring")
 local controller = {}
 local model = nil
 local gameScene = nil
-
+local enemyAi = require("ai.baseAi")
 
 controller.controlScene = function(scene, difficulty, chosenCharacters)
   print(chosenCharacters.player1)
@@ -33,19 +33,10 @@ controller.processTileTouch = function(coordinates, scene)
     model.player1.currentWord = model.player1.currentWord .. model.gameBoard[coordinates.y][coordinates.x]
     model.player1.selectedTiles[#model.player1.selectedTiles + 1] = coordinates
     scene.updateInfoBar(model.player1.currentWord)
-    scene.updateActionBar(calculateScore("player1"))
+    scene.updateActionBar(scoring.ofWord(model.player1.currentWord))
     return true
   end
   return false
-end
-
-function calculateScore(player)
-  local score = 0
-  local playerWord = model[player].currentWord
-  for i=1, string.len(playerWord) do
-    score = score + scoring.perLetter[playerWord[i]]
-  end
-  return score
 end
 
 controller.cancelCurrentAction = function(scene)
@@ -56,14 +47,18 @@ controller.cancelCurrentAction = function(scene)
   scene.updateActionBar(0)
 end
 
-
+controller.takeAiTurn = function()
+  local enemyWord, newBoard = enemyAi.makeMove(model.gameBoard, model.aiWords, model.difficulty)
+  print(enemyWord)
+end
 
 controller.attackActivated = function()
-  local score = calculateScore("player1")
+  local score = scoring.ofWord(model.player1.currentWord)
   if model.isValidPlayerWord(model.player1.currentWord) then
     gameScene.processAttack(score / model.player2.character.baseHealth)
     model.player2.currentHealth = model.player2.currentHealth - score
     print(model.player2.currentHealth)
+    controller.takeAiTurn()
     controller.refreshBoard(gameScene)
   end
   controller.cancelCurrentAction(gameScene)
