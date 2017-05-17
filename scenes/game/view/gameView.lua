@@ -101,7 +101,9 @@ end
 scene.clearSelections = function(tiles)
     for i, tile in pairs(tiles) do
         local tileSprite = board[tile.y][tile.x]
-        tileSprite:setFrame(tileSprite.frame - 26)
+        if tileSprite.frame > 26 then
+            tileSprite:setFrame(tileSprite.frame - 26)
+        end
     end
 end
 
