@@ -103,13 +103,13 @@ end
 
 scene.updateBoardSprites = function(boardModel)
   local i = 1
+  playTileRefreshSound()
   for rowKey, row in pairs(board) do
     for tileKey, tile in pairs(row) do
         local d = i * 100
         i = i + 1
         timer.performWithDelay( d, function()
             local w = tile.width
-            playTileRefreshSound()
             animations.shrinkHorizontal(tile)
             tile:setFrame(string.letterToNumber(boardModel[rowKey][tileKey]))
             timer.performWithDelay( 100, function() animations.growHorizontal(tile, w) end )
