@@ -18,6 +18,16 @@ animations.untilt = function(obj)
   transition.to( obj.path, { time=40, x1=0, y1=0, x2=-0, y2=0, x3=0, y3=0, x4=-0, y4=0 } )
 end
 
+animations.shrinkFromRight = function(obj, amount)
+  amount = math.abs(obj.path.x3) + amount
+  transition.to( obj.path, { time=500, x3=-amount, x4=-amount} )
+end
+
+animations.shrinkFromLeft = function(obj, amount)
+  amount = obj.path.x1 + amount
+  transition.to( obj.path, { time=500, x1=amount, x2=amount} )
+end
+
 animations.shrinkHorizontal = function(obj)
   transition.to(obj, { time = 100, width = 0 })
 end

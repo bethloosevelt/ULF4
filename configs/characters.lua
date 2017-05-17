@@ -9,31 +9,31 @@ characterModule.characters = {
     id = "williamShakespere",
     displayName = "William Shakespere",
     power = powers.swap,
-    baseHealth = 200
+    baseHealth = 50
   },
   hpLovecraft = {
     id = "hpLovecraft",
     displayName = "H.P. Lovecraft",
     power = powers.void,
-    baseHealth = 200
+    baseHealth = 50
   },
   oscarWilde = {
     id = "oscarWilde",
     displayName = "Oscar Wilde",
     power = "",
-    baseHealth = 200
+    baseHealth = 50
   },
   markTwain = {
     id = "markTwain",
     displayName = "Mark Twain",
     power = "",
-    baseHealth = 200
+    baseHealth = 50
   },
   janeAusten = {
     id = "janeAusten",
     displayName = "Jane Austen",
     power = "",
-    baseHealth = 200
+    baseHealth = 50
   }
 }
 

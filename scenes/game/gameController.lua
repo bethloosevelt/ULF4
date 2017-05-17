@@ -56,16 +56,17 @@ controller.cancelCurrentAction = function(scene)
   scene.updateActionBar(0)
 end
 
+
+
 controller.attackActivated = function()
   local score = calculateScore("player1")
   if model.isValidPlayerWord(model.player1.currentWord) then
-      model.player2.currentHealth = model.player2.currentHealth - score
-      print(model.player2.currentHealth)
-      controller.refreshBoard(gameScene)
+    gameScene.processAttack(score / model.player2.character.baseHealth)
+    model.player2.currentHealth = model.player2.currentHealth - score
+    print(model.player2.currentHealth)
+    controller.refreshBoard(gameScene)
   end
-
   controller.cancelCurrentAction(gameScene)
-
 end
 
 return controller

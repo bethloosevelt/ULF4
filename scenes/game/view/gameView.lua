@@ -38,6 +38,8 @@ local disposables = {
 local animationAreaDisplayGroup = display.newGroup()
 local primarySceneGroup = nil
 local board = nil
+local healthBar1 = {red=nil, green=nil}
+local healthBar2 = {red=nil, green=nil}
 
 local CENTER_OF_BOARD_X = display.contentWidth / 2
 local TOP_OF_BOARD = display.contentHeight / 3.5
@@ -68,8 +70,8 @@ local CENTER_OF_ANIMATION_AREA_x = display.contentWidth / 2
 local TOP_OF_ANIMATION_AREA = 0
 
 local HEALTH_BAR_START_WIDTH = display.contentWidth * .4
-local HEALTH_BAR_HEIGHT = HEIGHT_OF_ANIMATION_AREA * .1
-local HEALTH_BAR_Y = TOP_OF_ANIMATION_AREA + (.1 * HEIGHT_OF_ANIMATION_AREA)
+local HEALTH_BAR_HEIGHT = HEIGHT_OF_ANIMATION_AREA * .15
+local HEALTH_BAR_Y = TOP_OF_ANIMATION_AREA + (.15 * HEIGHT_OF_ANIMATION_AREA)
 
 local soundEffects = {}
 
@@ -230,6 +232,20 @@ function initActionBar()
 
 end
 
+scene.processAttack = function(percentChange, player)
+  local barToChange = nil
+  local shrinkFn = nil
+  if player == "player1" then
+    barToChange = healthBar1
+    shrinkFn = animations.shrinkFromRight
+  else
+    barToChange = healthBar2
+    shrinkFn = animations.shrinkFromLeft
+  end
+  shrinkFn(barToChange.green, percentChange * HEALTH_BAR_START_WIDTH)
+
+end
+
 function drawHealthBar(side)
   local x = nil
   if side == "left" then
@@ -237,15 +253,16 @@ function drawHealthBar(side)
   else
     x = display.contentWidth - (HEALTH_BAR_START_WIDTH / 2) - 10
   end
-  local newBar = display.newRect(animationAreaDisplayGroup, x, HEALTH_BAR_Y, HEALTH_BAR_START_WIDTH, HEALTH_BAR_HEIGHT)
-  newBar.fill = { .8, 0, .2 }
-  local newBar = display.newRect(animationAreaDisplayGroup, x, HEALTH_BAR_Y, HEALTH_BAR_START_WIDTH, HEALTH_BAR_HEIGHT)
-  newBar.fill = { 0, .8, .2 }
+  local newBarRed = display.newRect(animationAreaDisplayGroup, x, HEALTH_BAR_Y, HEALTH_BAR_START_WIDTH, HEALTH_BAR_HEIGHT)
+  newBarRed.fill = { .8, 0, .2 }
+  local newBarGreen = display.newRect(animationAreaDisplayGroup, x, HEALTH_BAR_Y, HEALTH_BAR_START_WIDTH, HEALTH_BAR_HEIGHT)
+  newBarGreen.fill = { 0, .8, .2 }
+  return newBarRed, newBarGreen
 end
 
 function initAnimationArea()
-  drawHealthBar("left")
-  drawHealthBar("right")
+  healthBar1.red, healthBar1.green = drawHealthBar("left")
+  healthBar2.red, healthBar2.green = drawHealthBar("right")
 end
 
 function initBackgrounds()
