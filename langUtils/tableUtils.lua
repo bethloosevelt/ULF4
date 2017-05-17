@@ -1,8 +1,16 @@
 
 table.take = function(table, n)
     result = {}
-    for i=0, n do
+    for i=1, n do
         result[#result + 1] = table[i]
+    end
+    return result
+end
+
+table.rest = function(table)
+    result = {}
+    for i=2, #table do
+        result[i - 1] = table[i]
     end
     return result
 end
@@ -12,6 +20,15 @@ table.concat = function(t1,t2)
         t1[#t1+1] = t2[i]
     end
     return t1
+end
+
+table.add = function(t, x)
+    local newTable = {}
+    for i=1, #t do
+        newTable[i] = t[i]
+    end
+    newTable[#t + 1] = x
+    return newTable
 end
 
 table.count = function(t)

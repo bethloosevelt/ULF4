@@ -109,6 +109,27 @@ scene.clearSelections = function(tiles)
     end
 end
 
+scene.selectTile = function(tile)
+    playTileSound()
+    animations.pulse(attackButton)
+    if tile.frame <= 26 then
+      tile:setFrame(tile.frame + 26)
+    end
+end
+
+scene.displayTileSelections = function(tiles)
+    if #tiles == 0 then
+        return
+    end
+
+    timer.performWithDelay( 500, function()
+        local currTile = tiles[1]
+        local viewTile = board[currTile.y][currTile.x]
+        scene.selectTile(viewTile)
+        scene.displayTileSelections(table.rest(tiles))
+    end)
+end
+
 scene.updateBoardSprites = function(boardModel)
   local i = 1
   playTileRefreshSound()
@@ -137,11 +158,7 @@ function setUpTileListeners()
     if event.phase == "ended" then
       animations.untilt(event.target)
       if controller.processTileTouch(event.target.coordinates, scene) then
-        playTileSound()
-        animations.pulse(attackButton)
-        if event.target.frame <= 26 then
-          event.target:setFrame(event.target.frame + 26)
-        end
+        scene.selectTile(event.target)
       else
         playErrorSound()
       end

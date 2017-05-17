@@ -57,19 +57,27 @@ controller.loseHealth = function(player, amount)
   model[player].currentHealth = model[player].currentHealth - amount
 end
 
-controller.takeAiTurn = function()
-  local enemyWord, newBoard = enemyAi.makeMove(model.gameBoard, model.aiWords, model.difficulty)
-  controller.loseHealth("player1", scoring.ofWord(enemyWord))
+controller.takeAiTurn = function(cb)
+  local enemyWord, newBoard, aiSelectedTiles = enemyAi.makeMove(model.gameBoard, model.aiWords, model.difficulty)
+  print(enemyWord)
+  gameScene.clearSelections(model.player1.selectedTiles)
+  controller.cancelCurrentAction(gameScene)
+  gameScene.displayTileSelections(aiSelectedTiles)
+  timer.performWithDelay( 500 * (#aiSelectedTiles + 1), function()
+      controller.loseHealth("player1", scoring.ofWord(enemyWord))
+      gameScene.clearSelections(aiSelectedTiles)
+      cb()
+  end)
 end
 
 controller.attackActivated = function()
   if model.isValidPlayerWord(model.player1.currentWord) then
     local score = scoring.ofWord(model.player1.currentWord)
     controller.loseHealth("player2", score)
-    controller.takeAiTurn()
-    controller.refreshBoard(gameScene)
+    controller.takeAiTurn(function() controller.refreshBoard(gameScene) end)
+  else
+      controller.cancelCurrentAction(gameScene)
   end
-  controller.cancelCurrentAction(gameScene)
 end
 
 return controller
