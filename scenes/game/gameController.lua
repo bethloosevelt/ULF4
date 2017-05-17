@@ -47,17 +47,25 @@ controller.cancelCurrentAction = function(scene)
   scene.updateActionBar(0)
 end
 
+controller.otherPlayer = function(player)
+  if player == "player1" then return "player2" end
+  if player == "player2" then return "player1" end
+end
+
+controller.loseHealth = function(player, amount)
+  gameScene.processAttack(amount / model[player].character.baseHealth, player)
+  model[player].currentHealth = model[player].currentHealth - amount
+end
+
 controller.takeAiTurn = function()
   local enemyWord, newBoard = enemyAi.makeMove(model.gameBoard, model.aiWords, model.difficulty)
-  print(enemyWord)
+  controller.loseHealth("player1", scoring.ofWord(enemyWord))
 end
 
 controller.attackActivated = function()
-  local score = scoring.ofWord(model.player1.currentWord)
   if model.isValidPlayerWord(model.player1.currentWord) then
-    gameScene.processAttack(score / model.player2.character.baseHealth)
-    model.player2.currentHealth = model.player2.currentHealth - score
-    print(model.player2.currentHealth)
+    local score = scoring.ofWord(model.player1.currentWord)
+    controller.loseHealth("player2", score)
     controller.takeAiTurn()
     controller.refreshBoard(gameScene)
   end
