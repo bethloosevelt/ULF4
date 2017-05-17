@@ -236,6 +236,8 @@ function drawHealthBar(side)
     x = display.contentWidth - (HEALTH_BAR_START_WIDTH / 2) - 10
   end
   local newBar = display.newRect(animationAreaDisplayGroup, x, HEALTH_BAR_Y, HEALTH_BAR_START_WIDTH, HEALTH_BAR_HEIGHT)
+  newBar.fill = { .8, 0, .2 }
+  local newBar = display.newRect(animationAreaDisplayGroup, x, HEALTH_BAR_Y, HEALTH_BAR_START_WIDTH, HEALTH_BAR_HEIGHT)
   newBar.fill = { 0, .8, .2 }
 end
 
