@@ -67,6 +67,10 @@ local WIDTH_OF_ANIMATION_AREA = display.contentWidth
 local CENTER_OF_ANIMATION_AREA_x = display.contentWidth / 2
 local TOP_OF_ANIMATION_AREA = 0
 
+local HEALTH_BAR_START_WIDTH = display.contentWidth * .4
+local HEALTH_BAR_HEIGHT = HEIGHT_OF_ANIMATION_AREA * .1
+local HEALTH_BAR_Y = TOP_OF_ANIMATION_AREA + (.1 * HEIGHT_OF_ANIMATION_AREA)
+
 local soundEffects = {}
 
 function playTileRefreshSound()
@@ -224,6 +228,22 @@ function initActionBar()
 
 end
 
+function drawHealthBar(side)
+  local x = nil
+  if side == "left" then
+    x = HEALTH_BAR_START_WIDTH / 2 + 10
+  else
+    x = display.contentWidth - (HEALTH_BAR_START_WIDTH / 2) - 10
+  end
+  local newBar = display.newRect(animationAreaDisplayGroup, x, HEALTH_BAR_Y, HEALTH_BAR_START_WIDTH, HEALTH_BAR_HEIGHT)
+  newBar.fill = { 0, .8, .2 }
+end
+
+function initAnimationArea()
+  drawHealthBar("left")
+  drawHealthBar("right")
+end
+
 function initBackgrounds()
   local boardBackground = display.newRect( boardDisplayGroup, CENTER_OF_BOARD_X, display.contentWidth / 2, WIDTH_OF_BOARD, HEIGHT_OF_BOARD )
   boardBackground:setFillColor(unpack(colors.DARK_BLUE))
@@ -263,6 +283,8 @@ function scene:create( event )
   initInfoBar()
 
   initActionBar()
+
+  initAnimationArea()
 
   controller.controlScene(scene, event.params.difficulty, event.params.characters)
 end

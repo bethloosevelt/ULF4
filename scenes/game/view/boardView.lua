@@ -1,6 +1,5 @@
 
 local buttons = require("viewLibs.buttons")
-local viewSpecs = require("scenes.game.view.viewSpecs")
 local sprites = require("viewLibs.sprites")
 
 function tile(parent)
