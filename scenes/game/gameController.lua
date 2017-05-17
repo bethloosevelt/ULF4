@@ -19,8 +19,8 @@ controller.refreshBoard = function(scene)
 end
 
 function isValidTile(coordinates, player)
-  local lastTileTouched = model[player].lastTileTouched
-  if lastTileTouched.x == nil or lastTileTouched.y == nil then
+  local lastTileTouched = model[player].selectedTiles[#model[player].selectedTiles]
+  if lastTileTouched == nil or lastTileTouched.x == nil or lastTileTouched.y == nil then
     return true
   end
   local dx = math.abs(lastTileTouched.x - coordinates.x)
@@ -31,7 +31,7 @@ end
 controller.processTileTouch = function(coordinates, scene)
   if isValidTile(coordinates, model.turn) then
     model.player1.currentWord = model.player1.currentWord .. model.gameBoard[coordinates.y][coordinates.x]
-    model.player1.lastTileTouched = coordinates
+    model.player1.selectedTiles[#model.player1.selectedTiles + 1] = coordinates
     scene.updateInfoBar(model.player1.currentWord)
     scene.updateActionBar(calculateScore("player1"))
     return true
@@ -49,10 +49,10 @@ function calculateScore(player)
 end
 
 controller.cancelCurrentAction = function(scene)
+  scene.clearSelections(model.player1.selectedTiles)
   model.player1.currentWord = ""
-  model.player1.lastTileTouched = {x=nil, y=nil}
+  model.player1.selectedTiles = {}
   scene.updateInfoBar(model.player1.currentWord)
-  scene.updateBoardSprites(model.gameBoard)
   scene.updateActionBar(0)
 end
 

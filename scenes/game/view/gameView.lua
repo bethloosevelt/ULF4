@@ -94,6 +94,13 @@ scene.drawBoard = function(boardModel)
   end
 end
 
+scene.clearSelections = function(tiles)
+    for i, tile in pairs(tiles) do
+        local tileSprite = board[tile.y][tile.x]
+        tileSprite:setFrame(tileSprite.frame - 26)
+    end
+end
+
 scene.updateBoardSprites = function(boardModel)
   local i = 1
   for rowKey, row in pairs(board) do

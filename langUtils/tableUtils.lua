@@ -31,10 +31,31 @@ table.reduce = function(t, fn, base)
   return base
 end
 
-
-table.print = function(t)
-  for k,v in pairs(t) do
-    print(k .. " : " .. tostring(v))
+table.print = function(tt, indent, done)
+  done = done or {}
+  indent = indent or 0
+  if type(tt) == "table" then
+    for key, value in pairs (tt) do
+      io.write(string.rep (" ", indent)) -- indent it
+      if type (value) == "table" and not done [value] then
+        if #value > 100 then
+            io.write(":)")
+        else
+            done [value] = true
+            io.write(string.format("[%s] => table\n", tostring (key)));
+            io.write(string.rep (" ", indent+4)) -- indent it
+            io.write("(\n");
+            table.print(value, indent + 7, done)
+            io.write(string.rep (" ", indent+4)) -- indent it
+            io.write(")\n");
+        end
+      else
+        io.write(string.format("[%s] => %s\n",
+            tostring (key), tostring(value)))
+      end
+    end
+  else
+    io.write(tt .. "\n")
   end
 end
 

@@ -10,7 +10,7 @@ function player(characterID)
     score = 0,
     wordsUsed = {},
     currentWord = "",
-    lastTileTouched = {x=nil, y=nil}
+    selectedTiles = {}
   }
   newPlayer.character = characterModule.characters[characterID]
   newPlayer.currentHealth = newPlayer.character.baseHealth
