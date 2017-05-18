@@ -1934,7 +1934,6 @@ moon
 mention
 box
 struggle
-q
 season
 wounded
 Philip
@@ -7076,7 +7075,6 @@ books
 blazing
 endured
 sticks
-Q
 bind
 Thence
 checks
@@ -35756,7 +35754,7 @@ secrete
 Dombey
 Herschel
 Landor
-lÃ 
+lÃ
 Palestine
 Par
 Racey
@@ -41498,7 +41496,6 @@ overwork
 polite
 savaient
 scarecrow
-sqq
 turtles
 vespers
 vijf
@@ -52419,7 +52416,7 @@ Sulphur
 belang
 bunting
 canyon
-cheques]] 
+cheques]]
 superimposed
 tierra
 truss
@@ -56264,7 +56261,7 @@ W.N.W.
 adorer
 censuring
 classics
-dÃ©jÃ 
+dÃ©jÃ
 enmity
 geweld
 handelt
@@ -63878,7 +63875,7 @@ glaive
 heeled
 hen's
 hoes
-jusqu'Ã 
+jusqu'Ã
 loi
 mixt
 mozo
@@ -66164,7 +66161,7 @@ parsnips
 perspectives
 pester
 porteur
-qu'Ã 
+qu'Ã
 s'avance
 sawe
 struts
@@ -69308,7 +69305,7 @@ stimulus
 tamer
 trundled
 ungeheure
-voilÃ 
+voilÃ
 warres
 Anywhere
 Barefoot
