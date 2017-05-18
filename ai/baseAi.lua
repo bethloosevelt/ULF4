@@ -23,9 +23,11 @@ end
 function inBoard(word, board, x, y, acc)
     if word == "" then
         selectedTiles[selectingWord] = acc
+        table.print(selectedTiles)
+        print("\n")
         return true
     end
-    if string.lower(board[x][y]) == string.sub(word, 1, 1) then
+    if string.lower(board[y][x]) == string.sub(word, 1, 1) then
       local adjacentTiles = getAdjacentTiles(x, y, board)
       for i=1, #adjacentTiles do
           local tile = adjacentTiles[i]
