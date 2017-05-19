@@ -4,6 +4,7 @@ require("langUtils.mathUtils")
 require("langUtils.stringUtils")
 
 local composer = require("composer")
+local scenes = require("scenes.scenes")
 local scene = composer.newScene()
 local widget = require "widget"
 local buttons = require("viewLibs.buttons")
@@ -117,8 +118,9 @@ scene.selectTile = function(tile)
     end
 end
 
-scene.displayTileSelections = function(tiles)
+scene.displayTileSelections = function(tiles, callback)
     if #tiles == 0 then
+        timer.performWithDelay(1000, callback)
         return
     end
     timer.performWithDelay( 500, function()
@@ -126,7 +128,7 @@ scene.displayTileSelections = function(tiles)
         local viewTile = board[currTile.y][currTile.x]
         controller.processTileTouch(currTile)
         scene.selectTile(viewTile)
-        scene.displayTileSelections(table.rest(tiles))
+        scene.displayTileSelections(table.rest(tiles), callback)
     end)
 end
 
@@ -147,6 +149,7 @@ scene.updateBoardSprites = function(boardModel)
   end
 end
 
+-- FIXME: What the hell is this? - Liam
 scene.refreshBoard = function(event)
   controller.refreshBoard(scene)
 end
@@ -291,7 +294,6 @@ function initBackgrounds()
   infoBarBackground:setFillColor(unpack(colors.DARK_BLUE))
   local animationAreaBackground = display.newRect( animationAreaDisplayGroup, CENTER_OF_ANIMATION_AREA_x, HEIGHT_OF_ANIMATION_AREA / 2, WIDTH_OF_ANIMATION_AREA, HEIGHT_OF_ANIMATION_AREA )
   animationAreaBackground:setFillColor(unpack(colors.OFF_WHITE))
-
 end
 
 function loadSoundEffects()
@@ -301,6 +303,16 @@ function loadSoundEffects()
     audio.loadSound(soundEffectsConfig.soundEffects.typewriter[2])
   }
   soundEffects.tile = audio.loadSound(soundEffectsConfig.soundEffects.tile)
+end
+
+
+scene.endGame = function(winner)
+  local options = {
+        effect = "fade",
+        time = 400,
+        params = {winner = winner}
+  }
+  composer.gotoScene( scenes.gameOver, options )
 end
 
 function scene:create( event )
@@ -317,11 +329,8 @@ function scene:create( event )
   infoBarDisplayGroup.y = TOP_OF_INFO_BAR
 
   initBackgrounds()
-
   initInfoBar()
-
   initActionBar()
-
   initAnimationArea()
 
   controller.controlScene(scene, event.params.difficulty, event.params.characters)

@@ -12,9 +12,9 @@ controller.controlScene = function(scene, difficulty, chosenCharacters)
   scene.createBoard(model.gameBoard)
 end
 
-controller.refreshBoard = function(scene)
+controller.refreshBoard = function()
   model.gameBoard = modelModule.newBoard()
-  scene.updateBoardSprites(model.gameBoard)
+  gameScene.updateBoardSprites(model.gameBoard)
 end
 
 function isValidTile(coordinates, player)
@@ -62,26 +62,50 @@ controller.takeAiTurn = function(cb)
   local enemyWord, newBoard, aiSelectedTiles = enemyAi.makeMove(model.gameBoard, model.aiWords, model.difficulty)
   print(enemyWord)
   gameScene.clearSelections(model.player1.selectedTiles)
-  controller.resetCurrentCharacter()
-  gameScene.displayTileSelections(aiSelectedTiles)
-  timer.performWithDelay( 500 * (#aiSelectedTiles + 1), function()
+  gameScene.displayTileSelections(aiSelectedTiles, function()
       controller.loseHealth("player1", scoring.ofWord(enemyWord))
       gameScene.clearSelections(aiSelectedTiles)
       cb()
   end)
 end
 
+controller.checkWin = function()
+  if model.player1.currentHealth <= 0 then
+    model.winner = "player1"
+  elseif model.player1.currentHealth <= 0 then
+    model.winner = "player2"
+  end
+end
+
+controller.toggleTurn = function()
+  model.turn = controller.otherPlayer(model.turn)
+end
+
 controller.attackActivated = function()
-  if model.isValidPlayerWord(model.player1.currentWord) then
-    local score = scoring.ofWord(model.player1.currentWord)
-    controller.loseHealth("player2", score)
-    model.turn = controller.otherPlayer(model.turn)
+  if model.isValidPlayerWord(model[model.turn].currentWord) then
+
+    local score = scoring.ofWord(model[model.turn].currentWord)
+    controller.loseHealth(controller.otherPlayer(model.turn), score)
+    controller.resetCurrentCharacter()
+
+    controller.checkWin()
+    if model.winner then
+      gameScene.endGame(model.winner)
+      return
+    end
+
+    controller.toggleTurn()
     controller.takeAiTurn(function()
+      controller.resetCurrentCharacter()
       controller.refreshBoard(gameScene)
       gameScene.updateActionBar(0)
+      controller.toggleTurn()
       controller.resetCurrentCharacter()
-      model.turn = controller.otherPlayer(model.turn)
-      controller.resetCurrentCharacter()
+      controller.checkWin()
+      if model.winner then
+        gameScene.endGame(model.winner)
+        return
+      end
     end)
   else
       controller.resetCurrentCharacter()

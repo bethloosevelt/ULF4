@@ -43,6 +43,7 @@ end
 
 gameModelModule.initModel = function(difficulty, characterID1, characterID2)
   local model = {}
+  model.winner = nil
   model.turn = "player1"
   model.difficulty = difficulty
   model.player1 = player(characterID1)
