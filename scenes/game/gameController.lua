@@ -7,7 +7,6 @@ local gameScene = nil
 local enemyAi = require("ai.baseAi")
 
 controller.controlScene = function(scene, difficulty, chosenCharacters)
-  print(chosenCharacters.player1)
   gameScene = scene
   model = modelModule.initModel(difficulty, chosenCharacters.player1, chosenCharacters.player2)
   scene.createBoard(model.gameBoard)
@@ -29,22 +28,24 @@ function isValidTile(coordinates, player)
 end
 
 controller.processTileTouch = function(coordinates, scene)
-  if isValidTile(coordinates, model.turn) then
-    model.player1.currentWord = model.player1.currentWord .. model.gameBoard[coordinates.y][coordinates.x]
-    model.player1.selectedTiles[#model.player1.selectedTiles + 1] = coordinates
-    scene.updateInfoBar(model.player1.currentWord)
-    scene.updateActionBar(scoring.ofWord(model.player1.currentWord))
+  local currentPlayer = model.turn
+  if isValidTile(coordinates, currentPlayer) then
+    model[currentPlayer].currentWord = model[currentPlayer].currentWord .. model.gameBoard[coordinates.y][coordinates.x]
+    model[currentPlayer].selectedTiles[#model[currentPlayer].selectedTiles + 1] = coordinates
+    gameScene.updateInfoBar(model[currentPlayer].currentWord)
+    gameScene.updateActionBar(scoring.ofWord(model[currentPlayer].currentWord))
     return true
   end
   return false
 end
 
-controller.cancelCurrentAction = function(scene)
-  scene.clearSelections(model.player1.selectedTiles)
-  model.player1.currentWord = ""
-  model.player1.selectedTiles = {}
-  scene.updateInfoBar(model.player1.currentWord)
-  scene.updateActionBar(0)
+controller.resetCurrentCharacter = function()
+  local currentPlayer = model.turn
+  gameScene.clearSelections(model[currentPlayer].selectedTiles)
+  model[currentPlayer].currentWord = ""
+  model[currentPlayer].selectedTiles = {}
+  gameScene.updateInfoBar(model[currentPlayer].currentWord)
+  gameScene.updateActionBar(0)
 end
 
 controller.otherPlayer = function(player)
@@ -61,7 +62,7 @@ controller.takeAiTurn = function(cb)
   local enemyWord, newBoard, aiSelectedTiles = enemyAi.makeMove(model.gameBoard, model.aiWords, model.difficulty)
   print(enemyWord)
   gameScene.clearSelections(model.player1.selectedTiles)
-  controller.cancelCurrentAction(gameScene)
+  controller.resetCurrentCharacter()
   gameScene.displayTileSelections(aiSelectedTiles)
   timer.performWithDelay( 500 * (#aiSelectedTiles + 1), function()
       controller.loseHealth("player1", scoring.ofWord(enemyWord))
@@ -74,9 +75,16 @@ controller.attackActivated = function()
   if model.isValidPlayerWord(model.player1.currentWord) then
     local score = scoring.ofWord(model.player1.currentWord)
     controller.loseHealth("player2", score)
-    controller.takeAiTurn(function() controller.refreshBoard(gameScene) end)
+    model.turn = controller.otherPlayer(model.turn)
+    controller.takeAiTurn(function()
+      controller.refreshBoard(gameScene)
+      gameScene.updateActionBar(0)
+      controller.resetCurrentCharacter()
+      model.turn = controller.otherPlayer(model.turn)
+      controller.resetCurrentCharacter()
+    end)
   else
-      controller.cancelCurrentAction(gameScene)
+      controller.resetCurrentCharacter()
   end
 end
 

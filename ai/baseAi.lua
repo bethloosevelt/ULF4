@@ -23,8 +23,6 @@ end
 function inBoard(word, board, x, y, acc)
     if word == "" then
         selectedTiles[selectingWord] = acc
-        table.print(selectedTiles)
-        print("\n")
         return true
     end
     if string.lower(board[y][x]) == string.sub(word, 1, 1) then
@@ -45,7 +43,7 @@ local function getValidWordsInBoard(board, words)
       for y=1, #(board[1]) do
         for i=1,#words do
             selectingWord = words[i]
-            if inBoard(words[i], board, x, y, {{x=x, y=y}}) then
+            if inBoard(words[i], board, x, y, {}) then
               result[#result + 1] = words[i]
             end
         end

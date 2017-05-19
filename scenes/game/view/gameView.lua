@@ -121,10 +121,10 @@ scene.displayTileSelections = function(tiles)
     if #tiles == 0 then
         return
     end
-
     timer.performWithDelay( 500, function()
         local currTile = tiles[1]
         local viewTile = board[currTile.y][currTile.x]
+        controller.processTileTouch(currTile)
         scene.selectTile(viewTile)
         scene.displayTileSelections(table.rest(tiles))
     end)
@@ -157,7 +157,7 @@ function setUpTileListeners()
     animations.tilt(event.target, {x=x, y=y})
     if event.phase == "ended" then
       animations.untilt(event.target)
-      if controller.processTileTouch(event.target.coordinates, scene) then
+      if controller.processTileTouch(event.target.coordinates) then
         scene.selectTile(event.target)
       else
         playErrorSound()
@@ -198,7 +198,7 @@ scene.updateActionBar = function(currentScore)
 end
 
 function cancel()
-  controller.cancelCurrentAction(scene)
+  controller.resetCurrentCharacter()
 end
 
 function squeez(event)
