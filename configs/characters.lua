@@ -16,25 +16,25 @@ characterModule.characters = {
     displayName = "H.P. Lovecraft",
     power = powers.void,
     baseHealth = 50
-  },
-  oscarWilde = {
-    id = "oscarWilde",
-    displayName = "Oscar Wilde",
-    power = "",
-    baseHealth = 50
-  },
-  markTwain = {
-    id = "markTwain",
-    displayName = "Mark Twain",
-    power = "",
-    baseHealth = 50
-  },
-  janeAusten = {
-    id = "janeAusten",
-    displayName = "Jane Austen",
-    power = "",
-    baseHealth = 50
   }
+  -- oscarWilde = {
+  --   id = "oscarWilde",
+  --   displayName = "Oscar Wilde",
+  --   power = "",
+  --   baseHealth = 50
+  -- },
+  -- markTwain = {
+  --   id = "markTwain",
+  --   displayName = "Mark Twain",
+  --   power = "",
+  --   baseHealth = 50
+  -- },
+  -- janeAusten = {
+  --   id = "janeAusten",
+  --   displayName = "Jane Austen",
+  --   power = "",
+  --   baseHealth = 50
+  -- }
 }
 
 return characterModule

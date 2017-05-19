@@ -70,7 +70,7 @@ controller.takeAiTurn = function(cb)
 end
 
 controller.checkWin = function()
-  if model.player1.currentHealth <= 0 then
+  if model.player2.currentHealth <= 0 then
     model.winner = "player1"
   elseif model.player1.currentHealth <= 0 then
     model.winner = "player2"
@@ -97,7 +97,6 @@ controller.attackActivated = function()
     controller.toggleTurn()
     controller.takeAiTurn(function()
       controller.resetCurrentCharacter()
-      controller.refreshBoard(gameScene)
       gameScene.updateActionBar(0)
       controller.toggleTurn()
       controller.resetCurrentCharacter()
@@ -106,6 +105,7 @@ controller.attackActivated = function()
         gameScene.endGame(model.winner)
         return
       end
+      controller.refreshBoard(gameScene)
     end)
   else
       controller.resetCurrentCharacter()

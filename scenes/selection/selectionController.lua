@@ -37,7 +37,7 @@ controller.startGame = function(composer)
 
   local characters = {
     player1 = model.selectedCharacterId,
-    player2 = "oscarWilde"
+    player2 = "hpLovecraft"
   }
   local params = {
     difficulty = model.selectedDifficulty,
